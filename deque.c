@@ -53,11 +53,25 @@ bool isEmpty(Deque* deque){
 }
 
 void reverse(Deque* deque){
+    if(deque == NULL || deque->top == NULL) return;
+    Node * current = deque->top;
+    Node temp = NULL;
+    
+    while(current){
 
+        temp = current->next;
+        current->next = current->previous;
+        current->previous = temp;
+
+        current = temp;
+    }
+    temp = deque->bottom;
+    deque->top = deque->bottom;
+    deque->bottom = deque->top;
 }
 
 void printDeque(Deque* deque, void(*printFunc)(void*)){
-
+    
 }
 
 void destroy(Deque* deque){

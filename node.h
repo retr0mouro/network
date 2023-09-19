@@ -5,6 +5,7 @@
 typedef struct node{
     void* data;
     struct node * next;
+    struct node * previous;
 } Node;
 
 Node * nodeCreate(void* data);
