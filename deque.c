@@ -50,7 +50,7 @@ int size(Deque *deque){
 }
 
 bool isEmpty(Deque* deque){
-    if(deque == NULL || deque->top == NULL) return false;
+    if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return false;
     return true;
 }
 
