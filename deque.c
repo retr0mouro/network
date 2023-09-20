@@ -1,24 +1,26 @@
 #include "deque.h"
 
 Deque* create(){
-    Deque * new = malloc(sizeof(struct deque));
-    new->top = new;
-    new->top->next = NULL;
-    new->bottom = NULL;
-    new->bottom->next = NULL;
-    return new;
+    Deque * deque = malloc(sizeof(struct deque));
+    deque->bottom = NULL;
+    deque->top = NULL;
+    return deque;
 }
 
 void push(Deque* deque, void* data){
-    Node * new = nodeCreate(data);
-    new->next = NULL;
-    deque->bottom = new;
+    Node * novo = malloc(sizeof(struct node));
+    novo->data = data;
+    novo->prev = deque->bottom;
+    novo->next = NULL;
+    deque->bottom = novo;
 }
 
 void pushFront(Deque* deque, void* data){
-    Node * new = nodeCreate(data);
-    new->next = deque->top;
-    deque->top = new->next;
+    Node * novo = malloc(sizeof(struct node));
+    novo->data = data;
+    novo->next = deque->top;
+    novo->prev = NULL;
+    deque->top = novo;
 }
 
 void* pop(Deque* deque){
@@ -55,17 +57,17 @@ bool isEmpty(Deque* deque){
 void reverse(Deque* deque){
     if(deque == NULL || deque->top == NULL) return;
     Node * current = deque->top;
-    Node temp = NULL;
+    Node * temp = NULL;
     
     while(current){
 
         temp = current->next;
-        current->next = current->previous;
-        current->previous = temp;
+        current->next = current->prev;
+        current->prev = temp;
 
         current = temp;
     }
-    temp = deque->bottom;
+    temp = deque->bottom; 
     deque->top = deque->bottom;
     deque->bottom = deque->top;
 }
