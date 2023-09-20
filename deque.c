@@ -29,16 +29,16 @@ void* pop(Deque* deque){
     Node answer;
     answer.data = deque->bottom->data;
     for(;temp.next != deque->bottom;temp = *(temp.next)); 
-    free(temp.next);
+    nodeFree(temp.next);
     return answer.data;
 }
 
 void* popFront(Deque* deque){
-    if(deque == NULL) return NULL;
-    Node temp = *(deque->top);
+    if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
+    void * erased = deque->top->data;
     deque->top = deque->top->next;
-    temp.next = NULL;
-    return temp.data;
+    nodeFree(deque->top->prev);
+    return erased;
 }
 
 int size(Deque *deque){
