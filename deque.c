@@ -25,11 +25,11 @@ void pushFront(Deque* deque, void* data){
 
 void* pop(Deque* deque){
     if(deque == NULL) return;
-    Node temp = *(deque->top);
+    Node * temp = deque->top;
     Node answer;
     answer.data = deque->bottom->data;
-    for(;temp.next != deque->bottom;temp = *(temp.next)); 
-    nodeFree(temp.next);
+    for(;temp != deque->bottom;temp = temp->next); 
+    nodeFree(temp);
     return answer.data;
 }
 
@@ -43,10 +43,10 @@ void* popFront(Deque* deque){
 
 int size(Deque *deque){
     if(deque == NULL || deque->top == NULL) return 0;
-    Node temp = *(deque->top);
+    Node * temp = deque->top;
     int size = 1;
-    for(;temp.next != deque->bottom;size++,temp = *(temp.next));
-    return size + 1;
+    for(;temp != deque->bottom;size++,temp = temp->next);
+    return size;
 }
 
 bool isEmpty(Deque* deque){
@@ -69,7 +69,11 @@ void reverse(Deque* deque){
     }
     temp = deque->bottom; 
     deque->top = deque->bottom;
-    deque->bottom = deque->top;
+    deque->bottom = temp;
+}
+
+void printFunc(){
+    
 }
 
 void printDeque(Deque* deque, void(*printFunc)(void*)){
