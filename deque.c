@@ -8,10 +8,11 @@ Deque* create(){
 }
 
 void push(Deque* deque, void* data){
-    Node * novo = malloc(sizeof(struct node));
-    novo->data = data;
+    Node * novo = nodeCreate(data);
     novo->prev = deque->bottom;
-    novo->next = NULL;
+    if(deque->bottom != NULL){
+        deque->bottom->next = novo;
+    }
     deque->bottom = novo;
 }
 
@@ -23,15 +24,24 @@ void pushFront(Deque* deque, void* data){
     deque->top = novo;
 }
 
-void* pop(Deque* deque){
-    if(deque == NULL) return;
-    Node * temp = deque->top;
-    Node answer;
-    answer.data = deque->bottom->data;
-    for(;temp != deque->bottom;temp = temp->next); 
-    nodeFree(temp);
-    return answer.data;
+void* pop(Deque* deque) {
+    if (deque->bottom == NULL || deque->top == NULL) return NULL; // Return an appropriate error value or handle it as needed
+
+    void* abort = deque->bottom->data;
+    Node* temp = deque->bottom;
+
+    if (deque->bottom == deque->top) {
+        // If there's only one node in the deque, reset both top and bottom to NULL
+        deque->bottom = deque->top = NULL;
+    } else {
+        deque->bottom = deque->bottom->prev;
+        deque->bottom->next = NULL;
+    }
+
+    free(temp);
+    return abort;
 }
+
 
 void* popFront(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
@@ -72,14 +82,20 @@ void reverse(Deque* deque){
     deque->bottom = temp;
 }
 
-void printFunc(){
-    
-}
+/*void printFunc(){
+
+}*/
 
 void printDeque(Deque* deque, void(*printFunc)(void*)){
     
 }
 
 void destroy(Deque* deque){
-    
+    Node * current = deque->top;
+    Node * temp = NULL;
+    while(current){
+        temp = current->next;
+        nodeFree(current);
+        current = temp;
+    }
 }
