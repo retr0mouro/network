@@ -3,6 +3,7 @@
 #include "node.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct deque{
     Node * top;
@@ -24,6 +25,8 @@ int size(Deque* deque);
 bool isEmpty(Deque* deque);
 
 void reverse(Deque* deque);
+
+void printFunc(void * data);
 
 void printDeque(Deque* deque, void(*printFunc)(void*));
 

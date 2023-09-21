@@ -64,30 +64,35 @@ bool isEmpty(Deque* deque){
     return true;
 }
 
-void reverse(Deque* deque){
-    if(deque == NULL || deque->top == NULL) return;
-    Node * current = deque->top;
-    Node * temp = NULL;
-    
-    while(current){
+void reverse(Deque* deque) {
+    if (deque == NULL || deque->top == NULL) return;
+    Node* current = deque->top;
 
-        temp = current->next;
-        current->next = current->prev;
-        current->prev = temp;
-
-        current = temp;
-    }
-    temp = deque->bottom; 
     deque->top = deque->bottom;
-    deque->bottom = temp;
+    deque->bottom = current;
+
+    while(current){
+        Node * p = current->next;
+        Node * n = current->prev;
+        current->next = n;
+        current->prev = p;
+        current = n;
+    }
+
 }
 
-/*void printFunc(){
 
-}*/
+void printFunc(void * data){
+    int * value = (int *) data;
+    printf("%d\n",*value);
+}
 
 void printDeque(Deque* deque, void(*printFunc)(void*)){
-    
+    Node * current = deque->top;
+    while(current){
+        printFunc(current->data);
+        current = current->next;
+    }
 }
 
 void destroy(Deque* deque){
