@@ -43,12 +43,13 @@ void* pop(Deque* deque) {
     return abort;
 }
 
-//corrigir
+//Funciona
 void* popFront(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
     void * erased = deque->top->data;
+    Node * temp = deque->top;
     deque->top = deque->top->next;
-    nodeFree(deque->top->prev);
+    nodeFree(temp);
     return erased;
 }
 

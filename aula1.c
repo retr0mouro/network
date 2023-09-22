@@ -43,7 +43,7 @@ int main(){
 	//printFunc(novo->top->data);
 	//printFunc(novo->bottom->data);
 
-	//popFront(novo);
+	popFront(novo);
 	
 
 	printDeque(novo,printFunc);
