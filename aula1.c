@@ -37,11 +37,13 @@ int main(){
 
 	printf("\n\n\n%d\n\n\n",size(novo));
 	
-	reverse(novo);
+	//reverse(novo);
 	
 
 	//printFunc(novo->top->data);
 	//printFunc(novo->bottom->data);
+
+	//popFront(novo);
 	
 
 	printDeque(novo,printFunc);

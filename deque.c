@@ -1,12 +1,13 @@
 #include "deque.h"
 
+//ok
 Deque* create(){
     Deque * deque = malloc(sizeof(struct deque));
     deque->bottom = NULL;
     deque->top = NULL;
     return deque;
 }
-
+//ok
 void push(Deque* deque, void* data){
     Node * novo = nodeCreate(data);
     novo->prev = deque->bottom;
@@ -15,7 +16,7 @@ void push(Deque* deque, void* data){
     }
     deque->bottom = novo;
 }
-
+//verificar
 void pushFront(Deque* deque, void* data){
     Node * novo = malloc(sizeof(struct node));
     novo->data = data;
@@ -23,7 +24,7 @@ void pushFront(Deque* deque, void* data){
     novo->prev = NULL;
     deque->top = novo;
 }
-
+//ok
 void* pop(Deque* deque) {
     if (deque->bottom == NULL || deque->top == NULL) return NULL; // Return an appropriate error value or handle it as needed
 
@@ -42,7 +43,7 @@ void* pop(Deque* deque) {
     return abort;
 }
 
-
+//corrigir
 void* popFront(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
     void * erased = deque->top->data;
@@ -51,6 +52,8 @@ void* popFront(Deque* deque){
     return erased;
 }
 
+
+//ok
 int size(Deque *deque){
     if(deque == NULL || deque->top == NULL) return 0;
     Node * temp = deque->top;
@@ -59,11 +62,14 @@ int size(Deque *deque){
     return size;
 }
 
+
+//ok
 bool isEmpty(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return false;
     return true;
 }
 
+//Corrigir
 void reverse(Deque* deque) {
     if (deque == NULL || deque->top == NULL) return;
     Node* current = deque->top;
@@ -81,12 +87,13 @@ void reverse(Deque* deque) {
 
 }
 
-
+//ok
 void printFunc(void * data){
     int * value = (int *) data;
     printf("%d\n",*value);
 }
 
+//ok mas confirmar
 void printDeque(Deque* deque, void(*printFunc)(void*)){
     Node * current = deque->top;
     while(current){
@@ -95,6 +102,7 @@ void printDeque(Deque* deque, void(*printFunc)(void*)){
     }
 }
 
+//ok mas confirmar
 void destroy(Deque* deque){
     Node * current = deque->top;
     Node * temp = NULL;
