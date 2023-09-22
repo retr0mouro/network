@@ -32,19 +32,24 @@ int main(){
 
 	push(novo,&d);
 
+	push(novo,&d);
+
 	printDeque(novo,printFunc);
 	
 
 	printf("\n\n\n%d\n\n\n",size(novo));
 	
-	//reverse(novo);
+	reverse(novo);
 	
 
 	//printFunc(novo->top->data);
 	//printFunc(novo->bottom->data);
 
-	popFront(novo);
+	//popFront(novo);
 	
+	//pushFront(novo,&a);
+
+	//printFunc(novo->bottom->data);
 
 	printDeque(novo,printFunc);
 	

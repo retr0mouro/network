@@ -16,7 +16,7 @@ void push(Deque* deque, void* data){
     }
     deque->bottom = novo;
 }
-//verificar
+//ok
 void pushFront(Deque* deque, void* data){
     Node * novo = malloc(sizeof(struct node));
     novo->data = data;
@@ -43,7 +43,7 @@ void* pop(Deque* deque) {
     return abort;
 }
 
-//Funciona
+//OK
 void* popFront(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
     void * erased = deque->top->data;
@@ -70,7 +70,7 @@ bool isEmpty(Deque* deque){
     return true;
 }
 
-//Corrigir
+//Corrigir - ultimo elemento apagado por alguma razao
 void reverse(Deque* deque) {
     if (deque == NULL || deque->top == NULL) return;
     Node* current = deque->top;
@@ -78,6 +78,7 @@ void reverse(Deque* deque) {
     deque->top = deque->bottom;
     deque->bottom = current;
 
+    current = deque->top;
     while(current){
         Node * p = current->next;
         Node * n = current->prev;
@@ -94,7 +95,7 @@ void printFunc(void * data){
     printf("%d\n",*value);
 }
 
-//ok mas confirmar
+//ok
 void printDeque(Deque* deque, void(*printFunc)(void*)){
     Node * current = deque->top;
     while(current){
@@ -103,7 +104,7 @@ void printDeque(Deque* deque, void(*printFunc)(void*)){
     }
 }
 
-//ok mas confirmar
+//ok
 void destroy(Deque* deque){
     Node * current = deque->top;
     Node * temp = NULL;
