@@ -10,6 +10,12 @@ Deque* create(){
 //ok
 void push(Deque* deque, void* data){
     Node * novo = nodeCreate(data);
+    if(!deque){
+        novo = deque->top;
+        novo = deque->bottom;
+        novo->next = deque->bottom;
+        novo->prev = NULL;
+    }
     novo->prev = deque->bottom;
     if(deque->bottom != NULL){
         deque->bottom->next = novo;
@@ -72,25 +78,53 @@ bool isEmpty(Deque* deque){
 
 //Corrigir - ultimo elemento apagado por alguma razao
 void reverse(Deque* deque) {
-    if (deque == NULL || deque->top == NULL) return;
-    Node* current = deque->top;
+    if (deque == NULL || deque->top == NULL || deque->bottom == NULL) return;
+    Node * current = deque->top;
+
+    while(current){
+        if(current->next == NULL){
+            Node * n = current->prev;
+            current->next = n;
+            current->prev = NULL;
+
+            break;
+
+            //current = current->next;
+
+        }
+        if(current->prev == NULL){
+            Node * p = current->next;
+            current->prev = p;
+            current->next = NULL;
+
+            current = current->prev;
+        }
+        Node * p = current->next;
+        Node * n = current->prev;
+        current->prev = p;
+        current->next = n;
+
+        current = current->prev;
+    }
+
+    current = deque->top;
 
     deque->top = deque->bottom;
     deque->bottom = current;
 
-    current = deque->top;
-    while(current){
-        Node * p = current->next;
-        Node * n = current->prev;
-        current->next = n;
-        current->prev = p;
-        current = n;
-    }
+    current = deque->bottom->prev;
 
+    current->next = deque->bottom;
+    /*printFunc(deque->top->data);
+    printFunc(deque->top->next->data);
+    putchar('\n');
+    printFunc(deque->bottom->prev->data);
+    printFunc(deque->bottom->data);*/
 }
 
 //ok
 void printFunc(void * data){
+    if(data == NULL) return;
     int * value = (int *) data;
     printf("%d\n",*value);
 }
@@ -113,4 +147,5 @@ void destroy(Deque* deque){
         nodeFree(current);
         current = temp;
     }
+    free(deque);
 }

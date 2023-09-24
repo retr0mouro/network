@@ -34,23 +34,23 @@ int main(){
 
 	push(novo,&d);
 
+	//pop(novo);
+
 	printDeque(novo,printFunc);
 	
 
 	printf("\n\n\n%d\n\n\n",size(novo));
 	
 	reverse(novo);
+
+	//Node * temp = novo->top;
 	
-
-	//printFunc(novo->top->data);
-	//printFunc(novo->bottom->data);
-
-	//popFront(novo);
+	/*printFunc(novo->bottom->prev->data);
+	printFunc(novo->top->data);
+	printFunc(novo->top->next->data);
+	printFunc(novo->top->next->next->data);*/
+	//printFunc(novo->top->next->next->next->data);
 	
-	//pushFront(novo,&a);
-
-	//printFunc(novo->bottom->data);
-
 	printDeque(novo,printFunc);
 	
 
