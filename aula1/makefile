@@ -1,3 +1,5 @@
+CFLAGS = -Wall
+
 sources := aula1.c node.c deque.c
 
 objects := $(sources:.c=.o)
@@ -9,7 +11,7 @@ EXECUTABLE := game
 all: $(EXECUTABLE)
 
 game: $(objects)
-	gcc $(objects) -o $(EXECUTABLE)
+	gcc $(CFLAGS) $(objects) -o $(EXECUTABLE)
 
 clean:
 	rm -f *.o $(EXECUTABLE)
