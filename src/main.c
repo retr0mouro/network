@@ -27,8 +27,14 @@ int main(int argc,char **argv){
         return 1;
     }
 
+    char* token;
 
-    
+
+    conteudoTexto = fread(conteudoTexto,textoSize,1,texto);
+
+    //while((token = __strtok_r(conteudoTexto,"\n",&conteudoTexto))){
+    //    printf("%s\n", token);
+    //}
 
     fclose(texto);
     return 0;
