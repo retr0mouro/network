@@ -1,6 +1,6 @@
 CFLAGS = -Wall
 
-sources := aula1.c node.c deque.c
+sources := aula2/main.c aula1/node.c aula1/deque.c aula2/command_parser.c
 
 objects := $(sources:.c=.o)
 
