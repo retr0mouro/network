@@ -69,7 +69,6 @@ void getArgs(Cmd * cmd,char* line){
 		temp = __strtok_r(line,' ',&temp);
 		cmd->args[i] = atoi(temp);
 	}
-
 }
 
 Cmd* parseLine(char* line){
