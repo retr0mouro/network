@@ -1,6 +1,6 @@
-CFLAGS = -Wall
+CFLAGS = -Wall -Iincludes
 
-sources := aula2/main.c aula1/node.c aula1/deque.c aula2/command_parser.c
+sources := src/main.c src/node.c src/deque.c src/command_parser.c
 
 objects := $(sources:.c=.o)
 
@@ -14,4 +14,4 @@ game: $(objects)
 	gcc $(CFLAGS) $(objects) -o $(EXECUTABLE)
 
 clean:
-	rm -f *.o $(EXECUTABLE)
+	rm -f src/*.o $(EXECUTABLE)

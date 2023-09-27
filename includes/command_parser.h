@@ -1,6 +1,6 @@
 #ifndef COMMAND_PARSER_H
 #define COMMAND_PARSER_H
-#include "aula1/deque.h"
+#include "deque.h"
 
 
 //strsep(&string,char delimitador);

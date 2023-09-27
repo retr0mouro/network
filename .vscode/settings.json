@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "command_parser.h": "c",
+        "deque.h": "c",
+        "node.h": "c",
+        "string.h": "c"
+    }
+}

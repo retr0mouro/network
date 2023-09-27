@@ -1,5 +1,7 @@
 #include "command_parser.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /*
     testes:
@@ -33,7 +35,7 @@ void processCommand(Deque* deque, Cmd* cmd){
 		printFunc(pop(deque));
 		return;
  	}
- 	if(cmd->command = "POP_FRONT"){
+ 	if(cmd->command == "POP_FRONT"){
  		if(!deque){
  			printf("EMPTY");
  			return;
@@ -66,7 +68,7 @@ int getNargs(char* line){
 void getArgs(Cmd * cmd,char* line){
 	char * temp;
 	for(int i = 0;i < cmd->nargs;i++){
-		temp = __strtok_r(line,' ',&temp);
+		temp = __strtok_r(line,(char) ' ',&temp);
 		cmd->args[i] = atoi(temp);
 	}
 }
