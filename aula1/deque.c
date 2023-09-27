@@ -1,4 +1,6 @@
 #include "deque.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 //ok
 Deque* create(){

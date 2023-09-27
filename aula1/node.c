@@ -1,5 +1,4 @@
 #include "node.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 Node * nodeCreate(void* data){

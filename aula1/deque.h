@@ -2,8 +2,6 @@
 #define DEQUE_H
 #include "node.h"
 #include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 typedef struct deque{
     Node * top;

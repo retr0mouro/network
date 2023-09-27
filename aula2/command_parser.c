@@ -1,4 +1,5 @@
 #include "command_parser.h"
+#include <string.h>
 
 /*
     testes:
@@ -17,11 +18,11 @@
 
 void processCommand(Deque* deque, Cmd* cmd){
 	if(cmd->command == "PUSH"){
-		for(int i = 0;i < cmd->nargs;push(deque,args[i]),i++);
+		for(int i = 0;i < cmd->nargs;push(deque,cmd->args[i]),i++);
 		return;
 	}
 	if(cmd->command == "PUSH_FRONT"){
-		for(int i = 0;i < cmd->nargs;pushFront(deque,args[i]),i++);
+		for(int i = 0;i < cmd->nargs;pushFront(deque,cmd->args[i]),i++);
 		return;
 	}
 	if(cmd->command == "POP"){
@@ -54,10 +55,28 @@ void processCommand(Deque* deque, Cmd* cmd){
  	}
 }
 
+int getNargs(char* line){
+	int spaces = 0;
+	for(int i = 0;line[i] != '\0' || line[i] != '\n';i++){
+		if(line[i] == ' ') spaces++;
+	}
+	return spaces;
+}
+
+void getArgs(Cmd * cmd,char* line){
+	char * temp;
+	for(int i = 0;i < cmd->nargs;i++){
+		temp = __strtok_r(line,' ',&temp);
+		cmd->args[i] = atoi(temp);
+	}
+
+}
+
 Cmd* parseLine(char* line){
     if(!line) return NULL;
     Cmd* comando = malloc(sizeof(struct cmd));
-    char* safe = strcpy(safe,line);
-    char* cmd = strsep(&line," ");
-
+    if(!comando) return NULL;
+    comando->nargs = getNargs(line);
+	getArgs(comando,line);
+	return comando;
 }
