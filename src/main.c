@@ -19,6 +19,16 @@ int main(int argc,char **argv){
     long int textoSize = ftell(texto);
     rewind(texto);
 
+    //alocar string
+    char* conteudoTexto = malloc(textoSize * sizeof(char));
+    if(!conteudoTexto){
+        perror("Alocação de memória falhou");
+        fclose(texto);
+        return 1;
+    }
+
+
+    
 
     fclose(texto);
     return 0;
