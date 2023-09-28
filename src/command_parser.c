@@ -20,11 +20,11 @@
 
 void processCommand(Deque* deque, Cmd* cmd){
 	if(cmd->command == "PUSH"){
-		for(int i = 0;i < cmd->nargs;push(deque,cmd->args[i]),i++);
+		for(int i = 0;i < cmd->nargs;push(deque,&cmd->args[i]),i++);
 		return;
 	}
 	if(cmd->command == "PUSH_FRONT"){
-		for(int i = 0;i < cmd->nargs;pushFront(deque,cmd->args[i]),i++);
+		for(int i = 0;i < cmd->nargs;pushFront(deque,&cmd->args[i]),i++);
 		return;
 	}
 	if(cmd->command == "POP"){
@@ -59,7 +59,7 @@ void processCommand(Deque* deque, Cmd* cmd){
 
 int getNargs(char* line){
 	int spaces = 0;
-	for(int i = 0;line[i] != '\0' || line[i] != '\n';i++){
+	for(int i = 0;line[i] != '\0' && line[i] != '\n';i++){
 		if(line[i] == ' ') spaces++;
 	}
 	return spaces;
@@ -67,9 +67,17 @@ int getNargs(char* line){
 
 void getArgs(Cmd * cmd,char* line){
 	char * temp;
-	for(int i = 0;i < cmd->nargs;i++){
-		temp = __strtok_r(line,(char) ' ',&temp);
+	int i = 0,flagArgs = 0;
+	while(line[i] != ' ') i++;
+	for(;flagArgs != cmd->nargs;i++){
+		if(flagArgs == cmd->nargs - 1){
+			temp = __strtok_r(line,(const char) '\n',&temp);
+			cmd->args[i] = atoi(temp);
+			flagArgs++;
+		}
+		temp = __strtok_r(line,(const char) ' ',&temp);
 		cmd->args[i] = atoi(temp);
+		flagArgs++;
 	}
 }
 

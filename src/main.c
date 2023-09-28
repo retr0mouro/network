@@ -5,7 +5,7 @@
 
 int main(int argc,char **argv){
     //Abrir a stream
-    FILE* texto = fopen(argv[1],"r");
+    FILE* texto = fopen("commands.txt","r");
     if(!texto){
         perror("Erro");
         return 1;
@@ -32,8 +32,12 @@ int main(int argc,char **argv){
 
     fread(conteudoTexto,textoSize,1,texto);
 
+    Deque deques;
+    Cmd* cmds;
+
     while((token = __strtok_r(conteudoTexto,"\n",&conteudoTexto))){
-        printf("%s\n", token);
+        cmds = parseLine(token);
+        //processCommand(&deques,cmds);
     }
 
     conteudoTexto = NULL;

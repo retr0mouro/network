@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Iincludes
+CFLAGS = -Wall -Iincludes -g
 
 sources := src/main.c src/node.c src/deque.c src/command_parser.c
 

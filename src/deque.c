@@ -128,16 +128,19 @@ void reverse(Deque* deque) {
 void printFunc(void * data){
     if(data == NULL) return;
     int * value = (int *) data;
-    printf("%d\n",*value);
+    printf("%d",*value);
 }
 
 //ok
 void printDeque(Deque* deque, void(*printFunc)(void*)){
     Node * current = deque->top;
+    putchar('[');
     while(current){
         printFunc(current->data);
         current = current->next;
+        if(current != deque->bottom) printf("->");
     }
+    putchar(']');
 }
 
 //ok
