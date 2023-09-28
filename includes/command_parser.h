@@ -17,6 +17,8 @@ int getNargs(char* line);
 
 void getArgs(Cmd * cmd,char* line);
 
+void getCommand(Cmd * cmd,char * line);
+
 Cmd* parseLine(char* line);
 
 #endif

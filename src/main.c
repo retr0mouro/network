@@ -4,6 +4,9 @@
 #include <string.h>
 
 int main(int argc,char **argv){
+
+    const char *enter = "\n";
+
     //Abrir a stream
     FILE* texto = fopen("commands.txt","r");
     if(!texto){
@@ -35,13 +38,16 @@ int main(int argc,char **argv){
     Deque deques;
     Cmd* cmds;
 
-    while((token = __strtok_r(conteudoTexto,"\n",&conteudoTexto))){
-        cmds = parseLine(token);
+    while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
+        printf("%s",token);
+        getCommand(cmds,token);
+        
         //processCommand(&deques,cmds);
     }
 
     conteudoTexto = NULL;
     free(conteudoTexto);
+
 
     fclose(texto);
     return 0;

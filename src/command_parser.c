@@ -18,6 +18,8 @@
 
 */
 
+
+
 void processCommand(Deque* deque, Cmd* cmd){
 	if(cmd->command == "PUSH"){
 		for(int i = 0;i < cmd->nargs;push(deque,&cmd->args[i]),i++);
@@ -66,26 +68,44 @@ int getNargs(char* line){
 }
 
 void getArgs(Cmd * cmd,char* line){
-	char * temp;
-	int i = 0,flagArgs = 0;
-	while(line[i] != ' ') i++;
-	for(;flagArgs != cmd->nargs;i++){
-		if(flagArgs == cmd->nargs - 1){
-			temp = __strtok_r(line,(const char) '\n',&temp);
-			cmd->args[i] = atoi(temp);
-			flagArgs++;
+	//line ja so tem numeros
+	const char * enter = "\n";
+	const char * espaco = " ";
+	char * numero;
+	for(int i = 0;i < cmd->nargs;i++){
+		if(i == cmd->nargs - 1){
+			numero = __strtok_r(line,enter,&numero);
+			cmd->args[i] = atoi(numero);
+			break;
 		}
-		temp = __strtok_r(line,(const char) ' ',&temp);
-		cmd->args[i] = atoi(temp);
-		flagArgs++;
+		numero = __strtok_r(line,espaco,&numero);
+		cmd->args[i] = atoi(numero);
 	}
 }
 
+void getCommand(Cmd * cmd,char * line){
+	const char * espaco = " ";
+	char token[50];
+	int i = 0;
+	for(;line[i] >= 'A' && line[i] <= 'Z';token[i] = line[i],i++);
+	if(line[i] != '\n' && line[i] != ' ');
+	token[i] = '\0';
+	for(int j = 0;j < i;j++){
+		cmd->command[j] = token[j];
+	}
+	return;
+}
+
 Cmd* parseLine(char* line){
-    if(!line) return NULL;
-    Cmd* comando = malloc(sizeof(struct cmd));
-    if(!comando) return NULL;
-    comando->nargs = getNargs(line);
+	if(!line) return NULL;
+	Cmd* comando = malloc(sizeof(struct cmd));
+	if(!comando) return NULL;
+	comando->nargs = getNargs(line);
+	getCommand(comando,line);
+	if(comando->nargs == 0){
+		comando->args = NULL;
+		return comando;
+	}
 	getArgs(comando,line);
 	return comando;
 }
