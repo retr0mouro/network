@@ -35,19 +35,20 @@ int main(int argc,char **argv){
 
     fread(conteudoTexto,textoSize,1,texto);
 
-    Deque deques;
-    Cmd* cmds;
+    //Deque deques;
+    Cmd* cmds = malloc(sizeof(struct cmd));
 
     while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
+        char* temp = getCommand(cmds,token);
         printf("%s",token);
-        getCommand(cmds,token);
-        
+        strcpy(cmds->command,temp);
+        printf("%s",cmds->command);
         //processCommand(&deques,cmds);
     }
 
-    conteudoTexto = NULL;
+    //conteudoTexto = NULL;
     free(conteudoTexto);
-
+    free(cmds);
 
     fclose(texto);
     return 0;

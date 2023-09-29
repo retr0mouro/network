@@ -68,10 +68,10 @@ int getNargs(char* line){
 }
 
 void getArgs(Cmd * cmd,char* line){
-	//line ja so tem numeros
 	const char * enter = "\n";
 	const char * espaco = " ";
 	char * numero;
+	numero =__strtok_r(line,espaco,&numero);
 	for(int i = 0;i < cmd->nargs;i++){
 		if(i == cmd->nargs - 1){
 			numero = __strtok_r(line,enter,&numero);
@@ -83,17 +83,14 @@ void getArgs(Cmd * cmd,char* line){
 	}
 }
 
-void getCommand(Cmd * cmd,char * line){
+char* getCommand(Cmd * cmd,char * line){
 	const char * espaco = " ";
 	char token[50];
+	memset(token,0,50);
 	int i = 0;
 	for(;line[i] >= 'A' && line[i] <= 'Z';token[i] = line[i],i++);
 	if(line[i] != '\n' && line[i] != ' ');
-	token[i] = '\0';
-	for(int j = 0;j < i;j++){
-		cmd->command[j] = token[j];
-	}
-	return;
+	return token;
 }
 
 Cmd* parseLine(char* line){
@@ -101,7 +98,7 @@ Cmd* parseLine(char* line){
 	Cmd* comando = malloc(sizeof(struct cmd));
 	if(!comando) return NULL;
 	comando->nargs = getNargs(line);
-	getCommand(comando,line);
+	strcpy(comando->command,getCommand(comando,line));
 	if(comando->nargs == 0){
 		comando->args = NULL;
 		return comando;
