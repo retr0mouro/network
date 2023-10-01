@@ -21,15 +21,15 @@
 
 
 void processCommand(Deque* deque, Cmd* cmd){
-	if(cmd->command == "PUSH"){
+	if(!strcmp(cmd->command,"PUSH")){
 		for(int i = 0;i < cmd->nargs;push(deque,&cmd->args[i]),i++);
 		return;
 	}
-	if(cmd->command == "PUSH_FRONT"){
+	if(!strcmp(cmd->command,"PUSH_FRONT")){
 		for(int i = 0;i < cmd->nargs;pushFront(deque,&cmd->args[i]),i++);
 		return;
 	}
-	if(cmd->command == "POP"){
+	if(!strcmp(cmd->command,"POP")){
 		if(!deque){
 			printf("EMPTY");
 			return;
@@ -37,7 +37,7 @@ void processCommand(Deque* deque, Cmd* cmd){
 		printFunc(pop(deque));
 		return;
  	}
- 	if(cmd->command == "POP_FRONT"){
+ 	if(!strcmp(cmd->command,"POP_FRONT")){
  		if(!deque){
  			printf("EMPTY");
  			return;
@@ -45,19 +45,22 @@ void processCommand(Deque* deque, Cmd* cmd){
  		printFunc(popFront(deque));
  		return;
  	}
- 	if(cmd->command == "SIZE"){
+ 	if(!strcmp(cmd->command,"SIZE")){
  		printf("%d",size(deque));
  		return;
  	}
- 	if(cmd->command == "REVERSE"){
+ 	if(!strcmp(cmd->command,"REVERSE")){
  		reverse(deque);
  		return;
  	}
- 	if(cmd->command == "PRINT"){
+ 	if(!strcmp(cmd->command,"PRINT")){
  		printDeque(deque,printFunc);
  		return;
  	}
 }
+
+
+
 
 int getNargs(char* line){
 	int spaces = 0;
@@ -66,6 +69,9 @@ int getNargs(char* line){
 	}
 	return spaces;
 }
+
+
+
 
 void getArgs(Cmd * cmd,char* line){
 	const char * enter = "\n";
@@ -85,8 +91,8 @@ void getArgs(Cmd * cmd,char* line){
 
 char* getCommand(Cmd * cmd,char * line){
 	const char * espaco = " ";
-	char token[50];
-	memset(token,0,50);
+	char *token = malloc(100*sizeof(char));
+	memset(token,'\0',100);
 	int i = 0;
 	for(;line[i] >= 'A' && line[i] <= 'Z';token[i] = line[i],i++);
 	if(line[i] != '\n' && line[i] != ' ');

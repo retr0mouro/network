@@ -30,25 +30,32 @@ int main(int argc,char **argv){
         return 1;
     }
 
-    char* token;
+    char* token = malloc(50 * sizeof(char));
 
 
     fread(conteudoTexto,textoSize,1,texto);
 
     //Deque deques;
     Cmd* cmds = malloc(sizeof(struct cmd));
+    cmds->command = NULL;
+    cmds->args = NULL;
+    cmds->nargs = 0;
 
     while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
-        char* temp = getCommand(cmds,token);
+        char * transf = cmds->command;
+        char* temp = malloc(100 * sizeof(char)); 
+        getCommand(cmds,token);
         printf("%s",token);
-        strcpy(cmds->command,temp);
+        //strcpy(transf,temp);
         printf("%s",cmds->command);
+        free(temp);
         //processCommand(&deques,cmds);
     }
 
     //conteudoTexto = NULL;
     free(conteudoTexto);
     free(cmds);
+    free(token);
 
     fclose(texto);
     return 0;
