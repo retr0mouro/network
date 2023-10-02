@@ -96,6 +96,9 @@ char* getCommand(Cmd * cmd,char * line){
 	int i = 0;
 	for(;line[i] >= 'A' && line[i] <= 'Z';token[i] = line[i],i++);
 	if(line[i] != '\n' && line[i] != ' ');
+	token[i] = '\0';
+	cmd->command = token;
+	//strcpy(cmd->command,token);
 	return token;
 }
 

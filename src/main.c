@@ -44,16 +44,24 @@ int main(int argc,char **argv){
     while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
         char * transf = cmds->command;
         char* temp = malloc(100 * sizeof(char)); 
-        getCommand(cmds,token);
-        printf("%s",token);
+        transf = getCommand(cmds,token);
+        printf("%s\n",token);
         //strcpy(transf,temp);
-        printf("%s",cmds->command);
+        printf("%sabc\n\n\n",cmds->command);
         free(temp);
         //processCommand(&deques,cmds);
     }
 
     //conteudoTexto = NULL;
-    free(conteudoTexto);
+    
+    /*
+        !!!!!!MEMORY LEAK!!!!!!
+        FALTA FAZER FREE DO conteudoTexto!!!!!!!!
+    */
+    //free(conteudoTexto);
+
+
+
     free(cmds);
     free(token);
 
