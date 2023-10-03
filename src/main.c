@@ -1,4 +1,5 @@
 #include "command_parser.h"
+#include "deque.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,29 +42,26 @@ int main(int argc,char **argv){
     cmds->args = NULL;
     cmds->nargs = 0;
 
-    while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
-        char * transf = cmds->command;
-        char* temp = malloc(100 * sizeof(char)); 
-        transf = getCommand(cmds,token);
-        printf("%s\n",token);
-        //strcpy(transf,temp);
-        printf("%sabc\n\n\n",cmds->command);
-        free(temp);
-        //processCommand(&deques,cmds);
+    Deque *deque = create();
+
+    /*while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
+        //***   token is a string   *** 
+        
     }
 
-    //conteudoTexto = NULL;
+    //conteudoTexto = malloc(sizeof(char));
     
     /*
         !!!!!!MEMORY LEAK!!!!!!
         FALTA FAZER FREE DO conteudoTexto!!!!!!!!
     */
-    //free(conteudoTexto);
 
-
-
+    destroy(deque);
     free(cmds);
-    free(token);
+    free(token); 
+    free(conteudoTexto);
+    //free(conteudoTexto);
+    
 
     fclose(texto);
     return 0;

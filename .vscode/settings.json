@@ -3,6 +3,7 @@
         "command_parser.h": "c",
         "deque.h": "c",
         "node.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "deque": "c"
     }
 }

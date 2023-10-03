@@ -74,19 +74,22 @@ int getNargs(char* line){
 
 
 void getArgs(Cmd * cmd,char* line){
-	const char * enter = "\n";
-	const char * espaco = " ";
-	char * numero;
-	numero =__strtok_r(line,espaco,&numero);
-	for(int i = 0;i < cmd->nargs;i++){
-		if(i == cmd->nargs - 1){
-			numero = __strtok_r(line,enter,&numero);
-			cmd->args[i] = atoi(numero);
-			break;
-		}
-		numero = __strtok_r(line,espaco,&numero);
-		cmd->args[i] = atoi(numero);
+	//const char * espaco = " ";
+	int * transf = cmd->args;
+	char *token = malloc(sizeof(char)*50);
+	if(!token) return;
+	token = __strtok_r(line,"\n",&token);
+	int i = 0;
+	for(;i < cmd->nargs - 1;i++){
+		token = __strtok_r(token," ",&token);
+		int tmp = atoi(token);
+		printf("%d",tmp);
+		transf[i] = tmp;
 	}
+	//i++;
+	//token = __strtok_r(token,"\n",&token);
+	//int temp = atoi(token);
+	//cmd->args[i] = temp;
 }
 
 char* getCommand(Cmd * cmd,char * line){
@@ -94,10 +97,11 @@ char* getCommand(Cmd * cmd,char * line){
 	char *token = malloc(100*sizeof(char));
 	memset(token,'\0',100);
 	int i = 0;
-	for(;line[i] >= 'A' && line[i] <= 'Z';token[i] = line[i],i++);
+	for(;(line[i] >= 'A' && line[i] <= 'Z') || line[i] == '_';token[i] = line[i],i++);
 	if(line[i] != '\n' && line[i] != ' ');
 	token[i] = '\0';
 	cmd->command = token;
+	
 	//strcpy(cmd->command,token);
 	return token;
 }
@@ -106,12 +110,17 @@ Cmd* parseLine(char* line){
 	if(!line) return NULL;
 	Cmd* comando = malloc(sizeof(struct cmd));
 	if(!comando) return NULL;
+	char *safe = malloc(sizeof(char) * 100);
+	strcpy(safe,line);
 	comando->nargs = getNargs(line);
-	strcpy(comando->command,getCommand(comando,line));
+	getCommand(comando,line);
 	if(comando->nargs == 0){
 		comando->args = NULL;
 		return comando;
 	}
-	getArgs(comando,line);
+	printf("%s\n\n",line);
+	printf("%s\n\n",safe);
+	//getArgs(comando,safe);
+	free(safe);
 	return comando;
 }
