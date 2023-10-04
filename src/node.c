@@ -10,6 +10,7 @@ Node * nodeCreate(void* data){
 }
 
 void nodeFree(Node * node){
+    free(node->data);
     node->data = NULL;
     node->next = NULL;
     node->prev = NULL;

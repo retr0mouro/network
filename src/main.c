@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFFERSIZE 100
+
 int main(int argc,char **argv){
 
     const char *enter = "\n";
@@ -24,22 +26,24 @@ int main(int argc,char **argv){
     rewind(texto);
 
     //alocar string
-    char* conteudoTexto = malloc(textoSize * sizeof(char));
+    char* conteudoTexto = malloc((textoSize + 1) * sizeof(char));
+    
     if(!conteudoTexto){
         perror("Alocação de memória falhou");
         fclose(texto);
         return 1;
     }
 
-    char* line = malloc(50 * sizeof(char));
+    char* line = malloc(BUFFERSIZE * sizeof(char));
     char *saveptr = conteudoTexto;
 
 
     fread(conteudoTexto,textoSize,1,texto);
+    conteudoTexto[textoSize] = '\0';
 
     //Deque deques;
 
-    Deque *deque = create();
+    //Deque *deque = create();
 
 
     line = __strtok_r(conteudoTexto,enter,&saveptr);
@@ -52,9 +56,11 @@ int main(int argc,char **argv){
         }
         free(cmd->args);
         free(cmd);
+        if(!__strtok_r(NULL,enter,&saveptr)) break;
         line = __strtok_r(NULL,enter,&saveptr);
-        //cmd = parseLine(line);
     }
+
+    //printf("%s",line);
     
     //memset(conteudoTexto,'A',textoSize);
     //conteudoTexto[textoSize] = '\0'; 
@@ -64,9 +70,9 @@ int main(int argc,char **argv){
         FALTA FAZER FREE DO conteudoTexto!!!!!!!!
     */
 
-    destroy(deque);
-    free(line); 
-    free(conteudoTexto);
+    //destroy(deque);
+    //free(line); 
+    //free(conteudoTexto);
     
 
     fclose(texto);
