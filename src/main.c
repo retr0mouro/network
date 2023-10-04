@@ -59,10 +59,6 @@ int main(int argc,char **argv){
         //      printf("%d\n\n\n%d\n",*cmd->args,cmd->nargs);
         free(cmd->args);
         free(cmd);
-<<<<<<< HEAD
-        if(!__strtok_r(NULL,enter,&saveptr)) break;
-        line = __strtok_r(NULL,enter,&saveptr);
-=======
         //cmd = parseLine(line);
 >>>>>>> parent of e72b77d (Funciona tudo, confirmar, tem memory leaks)
     }
