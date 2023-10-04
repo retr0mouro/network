@@ -76,7 +76,11 @@ int getNargs(char* line){
 void getArgs(Cmd * cmd,char* line){
 	// ** cmd already has nargs ** 
 	const char * espaco = " ";
+<<<<<<< HEAD
 	char * safe = malloc(sizeof(char) * BUFFERSIZE);//1
+=======
+	char * safe = malloc(sizeof(char) * strlen(line));
+>>>>>>> parent of e72b77d (Funciona tudo, confirmar, tem memory leaks)
 	strcpy(safe,line);
 	char * token = NULL;
 	char * saveptr;
@@ -93,8 +97,11 @@ void getArgs(Cmd * cmd,char* line){
 		cmd->args[i] = n;
 	}
 	printf("\n\n\n");
+<<<<<<< HEAD
 	//safe = NULL;
 	free(safe);//1
+=======
+>>>>>>> parent of e72b77d (Funciona tudo, confirmar, tem memory leaks)
 }
 
 char* getCommand(Cmd * cmd,char * line){
@@ -104,9 +111,12 @@ char* getCommand(Cmd * cmd,char * line){
 	char* saveptr;
 	char* token = __strtok_r(safe,espaco,&saveptr);
 	//printf("\n\n%s\n\n",token);
+<<<<<<< HEAD
 	//printf("%s",safe);
 	safe = NULL;
 	free(safe);
+=======
+>>>>>>> parent of e72b77d (Funciona tudo, confirmar, tem memory leaks)
 	return token;
 }
 
@@ -121,7 +131,6 @@ Cmd* parseLine(char* line){
 	//printf("%s\n",cmd->command);
 	cmd->nargs = getNargs(line);
 	getArgs(cmd,line);
-	transf = NULL;
 	free(transf);
 	return cmd;
 }
