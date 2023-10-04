@@ -31,36 +31,45 @@ int main(int argc,char **argv){
         return 1;
     }
 
-    char* token = malloc(50 * sizeof(char));
+    char* line = malloc(50 * sizeof(char));
+    char *saveptr = conteudoTexto;
 
 
     fread(conteudoTexto,textoSize,1,texto);
 
     //Deque deques;
-    Cmd* cmds = malloc(sizeof(struct cmd));
-    cmds->command = NULL;
-    cmds->args = NULL;
-    cmds->nargs = 0;
 
     Deque *deque = create();
 
-    /*while((token = __strtok_r(conteudoTexto,enter,&conteudoTexto))){
-        //***   token is a string   *** 
-        
-    }
 
-    //conteudoTexto = malloc(sizeof(char));
+    line = __strtok_r(conteudoTexto,enter,&saveptr);
+
+    while(line){
+        //***   token is a string   *** 
+        Cmd *cmd = parseLine(line);
+        for(int i = 0;i < cmd->nargs;i++){
+            printf("%s %d\n",cmd->command,cmd->args[i]);
+        }
+        line = __strtok_r(NULL,enter,&saveptr);
+        //if(cmd->args != 0)
+        //      printf("%d\n\n\n%d\n",*cmd->args,cmd->nargs);
+        free(cmd->args);
+        free(cmd);
+        //cmd = parseLine(line);
+    }
     
+    memset(conteudoTexto,'A',textoSize);
+    conteudoTexto[textoSize] = '\0'; 
+
     /*
         !!!!!!MEMORY LEAK!!!!!!
         FALTA FAZER FREE DO conteudoTexto!!!!!!!!
     */
 
     destroy(deque);
-    free(cmds);
-    free(token); 
+    //free(cmd);
+    free(line); 
     free(conteudoTexto);
-    //free(conteudoTexto);
     
 
     fclose(texto);

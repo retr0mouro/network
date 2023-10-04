@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define BUFFERSIZE 100
+
 /*
     testes:
         11/11/2023
@@ -18,7 +20,11 @@
 
 */
 
-
+void init(Cmd *cmd){
+	cmd->command = NULL;
+	cmd->args = NULL;
+	cmd->nargs = 0;
+}
 
 void processCommand(Deque* deque, Cmd* cmd){
 	if(!strcmp(cmd->command,"PUSH")){
@@ -74,53 +80,47 @@ int getNargs(char* line){
 
 
 void getArgs(Cmd * cmd,char* line){
-	//const char * espaco = " ";
-	int * transf = cmd->args;
-	char *token = malloc(sizeof(char)*50);
-	if(!token) return;
-	token = __strtok_r(line,"\n",&token);
+	// ** cmd already has nargs ** 
+	const char * espaco = " ";
+	char * safe = malloc(sizeof(char) * strlen(line));
+	strcpy(safe,line);
+	char * token = NULL;
+	char * saveptr;
+	token = __strtok_r(safe,espaco,&saveptr);
+	//if(cmd->nargs != 0) printf("+++++++++++++\n%s\n+++++++++++",token);
 	int i = 0;
-	for(;i < cmd->nargs - 1;i++){
-		token = __strtok_r(token," ",&token);
-		int tmp = atoi(token);
-		printf("%d",tmp);
-		transf[i] = tmp;
+	if(cmd->nargs == 0) return;
+	cmd->args = malloc(sizeof(int) * cmd->nargs);
+	if(!cmd->args) return;
+	for(;i < cmd->nargs;i++){
+		token = __strtok_r(NULL,espaco,&saveptr);
+		//printf("%s\n",token);
+		int n = atoi(token);
+		cmd->args[i] = n;
 	}
-	//i++;
-	//token = __strtok_r(token,"\n",&token);
-	//int temp = atoi(token);
-	//cmd->args[i] = temp;
+	printf("\n\n\n");
 }
 
 char* getCommand(Cmd * cmd,char * line){
 	const char * espaco = " ";
-	char *token = malloc(100*sizeof(char));
-	memset(token,'\0',100);
-	int i = 0;
-	for(;(line[i] >= 'A' && line[i] <= 'Z') || line[i] == '_';token[i] = line[i],i++);
-	if(line[i] != '\n' && line[i] != ' ');
-	token[i] = '\0';
-	cmd->command = token;
-	
-	//strcpy(cmd->command,token);
+	char *safe = malloc(sizeof(char) * BUFFERSIZE);
+	strcpy(safe,line);
+	char* saveptr;
+	char* token = __strtok_r(safe,espaco,&saveptr);
+	//printf("\n\n%s\n\n",token);
 	return token;
 }
 
 Cmd* parseLine(char* line){
-	if(!line) return NULL;
-	Cmd* comando = malloc(sizeof(struct cmd));
-	if(!comando) return NULL;
-	char *safe = malloc(sizeof(char) * 100);
-	strcpy(safe,line);
-	comando->nargs = getNargs(line);
-	getCommand(comando,line);
-	if(comando->nargs == 0){
-		comando->args = NULL;
-		return comando;
-	}
-	printf("%s\n\n",line);
-	printf("%s\n\n",safe);
-	//getArgs(comando,safe);
-	free(safe);
-	return comando;
+	//if(!line) return NULL;
+	Cmd * cmd = malloc(sizeof(struct cmd));
+	init(cmd);
+	char *transf = malloc(sizeof(char) * BUFFERSIZE);
+	transf = getCommand(cmd,line);
+	cmd->command = transf;
+	//printf("%s\n",cmd->command);
+	cmd->nargs = getNargs(line);
+	getArgs(cmd,line);
+	free(transf);
+	return cmd;
 }
