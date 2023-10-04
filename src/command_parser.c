@@ -82,7 +82,7 @@ int getNargs(char* line){
 void getArgs(Cmd * cmd,char* line){
 	// ** cmd already has nargs ** 
 	const char * espaco = " ";
-	char * safe = malloc(sizeof(char) * strlen(line));
+	char * safe = malloc(sizeof(char) * BUFFERSIZE);
 	strcpy(safe,line);
 	char * token = NULL;
 	char * saveptr;
@@ -99,6 +99,8 @@ void getArgs(Cmd * cmd,char* line){
 		cmd->args[i] = n;
 	}
 	printf("\n\n\n");
+	safe = NULL;
+	free(safe);
 }
 
 char* getCommand(Cmd * cmd,char * line){
@@ -108,6 +110,8 @@ char* getCommand(Cmd * cmd,char * line){
 	char* saveptr;
 	char* token = __strtok_r(safe,espaco,&saveptr);
 	//printf("\n\n%s\n\n",token);
+	safe = NULL;
+	free(safe);
 	return token;
 }
 
@@ -121,6 +125,7 @@ Cmd* parseLine(char* line){
 	//printf("%s\n",cmd->command);
 	cmd->nargs = getNargs(line);
 	getArgs(cmd,line);
+	transf = NULL;
 	free(transf);
 	return cmd;
 }
