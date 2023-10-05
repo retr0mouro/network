@@ -24,7 +24,7 @@ int main(int argc,char **argv){
     rewind(texto);
 
     //alocar string
-    char* conteudoTexto = malloc(textoSize * sizeof(char));
+    char* conteudoTexto = malloc((textoSize + 1) * sizeof(char));
     if(!conteudoTexto){
         perror("Alocação de memória falhou");
         fclose(texto);
@@ -36,10 +36,11 @@ int main(int argc,char **argv){
 
 
     fread(conteudoTexto,textoSize,1,texto);
+    conteudoTexto[textoSize] = '\0';
 
     //Deque deques;
 
-    Deque *deque = create();
+    //Deque *deque = create();
 
 
     line = __strtok_r(conteudoTexto,enter,&saveptr);
