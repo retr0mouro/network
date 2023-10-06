@@ -106,12 +106,10 @@ void getArgs(Cmd * cmd,char* line){
 char* getCommand(Cmd * cmd,char * line){
 	const char * espaco = " ";
 	char *safe = malloc(sizeof(char) * BUFFERSIZE);
+	if(!safe) return NULL;
 	strcpy(safe,line);
 	char* saveptr;
 	char* token = __strtok_r(safe,espaco,&saveptr);
-	//printf("\n\n%s\n\n",token);
-	safe = NULL;
-	free(safe);
 	return token;
 }
 

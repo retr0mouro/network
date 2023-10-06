@@ -53,6 +53,7 @@ int main(int argc,char **argv){
         for(int i = 0;i < cmd->nargs;i++){
             printf("%s:%d\n",cmd->command,cmd->args[i]);
         }
+        free(cmd->command);
         free(cmd->args);
         free(cmd);
         line = __strtok_r(NULL,enter,&saveptr);
