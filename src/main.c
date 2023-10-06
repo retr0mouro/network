@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFFERSIZE 100
+
 int main(int argc,char **argv){
 
     const char *enter = "\n";
@@ -31,7 +33,7 @@ int main(int argc,char **argv){
         return 1;
     }
 
-    char* line = malloc(50 * sizeof(char));
+    char* line = NULL;
     char *saveptr = conteudoTexto;
 
 
@@ -56,13 +58,16 @@ int main(int argc,char **argv){
         line = __strtok_r(NULL,enter,&saveptr);
         //cmd = parseLine(line);
     }
+
+
+
     memset(conteudoTexto,'A',textoSize);
     conteudoTexto[textoSize] = '\0';
     
     
     
     
-    free(line); 
+    //free(line); 
     free(conteudoTexto);
     fclose(texto);
     return 0;
