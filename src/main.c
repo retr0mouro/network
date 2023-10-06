@@ -56,6 +56,17 @@ int main(int argc,char **argv){
         line = __strtok_r(NULL,enter,&saveptr);
         //cmd = parseLine(line);
     }
+    memset(conteudoTexto,'A',textoSize);
+    conteudoTexto[textoSize] = '\0';
+    
+    
+    
+    
+    free(line); 
+    free(conteudoTexto);
+    fclose(texto);
+    return 0;
 }
     
-    //memset(conteudoTexto,'A',textoSize);
+
+    
