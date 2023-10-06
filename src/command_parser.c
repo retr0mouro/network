@@ -119,13 +119,11 @@ Cmd* parseLine(char* line){
 	//if(!line) return NULL;
 	Cmd * cmd = malloc(sizeof(struct cmd));
 	init(cmd);
-	char *transf = malloc(sizeof(char) * BUFFERSIZE);
+	char *transf = NULL;
 	transf = getCommand(cmd,line);
 	cmd->command = transf;
 	//printf("%s\n",cmd->command);
 	cmd->nargs = getNargs(line);
 	getArgs(cmd,line);
-	transf = NULL;
-	free(transf);
 	return cmd;
 }
