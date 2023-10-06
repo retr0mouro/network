@@ -21,7 +21,7 @@
 */
 
 void init(Cmd *cmd){
-	cmd->command = NULL;
+	cmd->command = malloc(sizeof(char) * BUFFERSIZE);
 	cmd->args = NULL;
 	cmd->nargs = 0;
 }
@@ -87,39 +87,38 @@ void getArgs(Cmd * cmd,char* line){
 	char * token = NULL;
 	char * saveptr;
 	token = __strtok_r(safe,espaco,&saveptr);
-	//if(cmd->nargs != 0) printf("+++++++++++++\n%s\n+++++++++++",token);
 	int i = 0;
 	if(cmd->nargs == 0) return;
 	cmd->args = malloc(sizeof(int) * cmd->nargs);
 	if(!cmd->args) return;
 	for(;i < cmd->nargs;i++){
 		token = __strtok_r(NULL,espaco,&saveptr);
-		//printf("%s\n",token);
 		int n = atoi(token);
 		cmd->args[i] = n;
 	}
-	printf("\n\n\n");
-	safe = NULL;
 	free(safe);
 }
 
-char* getCommand(Cmd * cmd,char * line){
+void getCommand(Cmd * cmd,char * line){
 	const char * espaco = " ";
 	char *safe = malloc(sizeof(char) * BUFFERSIZE);
-	if(!safe) return NULL;
+	if(!safe) return;
 	strcpy(safe,line);
 	char* saveptr;
 	char* token = __strtok_r(safe,espaco,&saveptr);
-	return token;
+	if(cmd->command) strcpy(cmd->command,token);
+	else {
+		cmd->command = malloc(sizeof(char) * strlen(token));
+		strcpy(cmd->command,token);
+	}
+	free(safe);
 }
 
 Cmd* parseLine(char* line){
 	//if(!line) return NULL;
 	Cmd * cmd = malloc(sizeof(struct cmd));
 	init(cmd);
-	char *transf = NULL;
-	transf = getCommand(cmd,line);
-	cmd->command = transf;
+	getCommand(cmd,line);
 	//printf("%s\n",cmd->command);
 	cmd->nargs = getNargs(line);
 	getArgs(cmd,line);
