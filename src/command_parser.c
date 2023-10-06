@@ -83,14 +83,21 @@ void getArgs(Cmd * cmd,char* line){
 	// ** cmd already has nargs ** 
 	const char * espaco = " ";
 	char * safe = malloc(sizeof(char) * BUFFERSIZE);
+	if(!safe) return;
 	strcpy(safe,line);
 	char * token = NULL;
 	char * saveptr;
 	token = __strtok_r(safe,espaco,&saveptr);
 	int i = 0;
-	if(cmd->nargs == 0) return;
+	if(cmd->nargs == 0){
+		free(safe);
+		return;
+	}
 	cmd->args = malloc(sizeof(int) * cmd->nargs);
-	if(!cmd->args) return;
+	if(!cmd->args){
+		free(safe);
+		return;
+	}
 	for(;i < cmd->nargs;i++){
 		token = __strtok_r(NULL,espaco,&saveptr);
 		int n = atoi(token);
