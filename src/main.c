@@ -11,7 +11,7 @@ int main(int argc,char **argv){
     const char *enter = "\n";
 
     //Abrir a stream
-    FILE* texto = fopen("commands.txt","r");
+    FILE* texto = fopen(argv[0],"r");
     if(!texto){
         perror("Erro");
         return 1;
@@ -42,7 +42,7 @@ int main(int argc,char **argv){
 
     //Deque deques;
 
-    //Deque *deque = create();
+    Deque *deque = create();
 
 
     line = __strtok_r(conteudoTexto,enter,&saveptr);
@@ -51,13 +51,13 @@ int main(int argc,char **argv){
         //***   token is a string   *** 
         Cmd *cmd = parseLine(line);
         for(int i = 0;i < cmd->nargs;i++){
-            printf("%s:%d\n",cmd->command,cmd->args[i]);
+            //printf("%s:%d\n",cmd->command,cmd->args[i]);
+            processCommand(deque,cmd);
         }
         free(cmd->command);
         free(cmd->args);
         free(cmd);
         line = __strtok_r(NULL,enter,&saveptr);
-        //cmd = parseLine(line);
     }
 
 
@@ -69,6 +69,7 @@ int main(int argc,char **argv){
     
     
     //free(line); 
+    destroy(deque);
     free(conteudoTexto);
     fclose(texto);
     return 0;

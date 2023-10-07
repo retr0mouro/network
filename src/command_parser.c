@@ -40,7 +40,7 @@ void processCommand(Deque* deque, Cmd* cmd){
 			printf("EMPTY");
 			return;
 		}
-		printFunc(pop(deque));
+		printInt(pop(deque));
 		return;
  	}
  	if(!strcmp(cmd->command,"POP_FRONT")){
@@ -48,7 +48,7 @@ void processCommand(Deque* deque, Cmd* cmd){
  			printf("EMPTY");
  			return;
  		}
- 		printFunc(popFront(deque));
+ 		printInt(popFront(deque));
  		return;
  	}
  	if(!strcmp(cmd->command,"SIZE")){
@@ -60,7 +60,7 @@ void processCommand(Deque* deque, Cmd* cmd){
  		return;
  	}
  	if(!strcmp(cmd->command,"PRINT")){
- 		printDeque(deque,printFunc);
+ 		printDeque(deque,printInt);
  		return;
  	}
 }

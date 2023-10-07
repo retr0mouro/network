@@ -2,10 +2,12 @@
 #define DEQUE_H
 #include "node.h"
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef struct deque{
     Node * top;
     Node * bottom;
+    size_t size;
 } Deque;
 
 Deque* create();
@@ -24,7 +26,7 @@ bool isEmpty(Deque* deque);
 
 void reverse(Deque* deque);
 
-void printFunc(void * data);
+void printInt(void * data);
 
 void printDeque(Deque* deque, void(*printFunc)(void*));
 

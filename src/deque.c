@@ -1,38 +1,57 @@
 #include "deque.h"
-#include <stdlib.h>
+#include "node.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-//ok
+// Allocates memory for the deque and returns it's address
 Deque* create(){
     Deque * deque = malloc(sizeof(struct deque));
     deque->bottom = NULL;
     deque->top = NULL;
+    deque->size = 0;
     return deque;
 }
-//ok
+
+
+// Adds a value as the last position in the deque
 void push(Deque* deque, void* data){
-    Node * novo = nodeCreate(data);
-    if(!deque){
-        novo = deque->top;
-        novo = deque->bottom;
-        novo->next = deque->bottom;
-        novo->prev = NULL;
+    Node* new = malloc(sizeof(struct node));
+    new->data = data;
+    new->prev = deque->bottom;
+    new->next = NULL;
+    deque->bottom = new;
+    /* if it was empty before, also set the first pointer */
+    if (deque->size == 0) {
+        deque->top = new;
+    } 
+    /* otherwise update the previous last */
+    else {
+        new->prev->next = new;
     }
-    novo->prev = deque->bottom;
-    if(deque->bottom != NULL){
-        deque->bottom->next = novo;
-    }
-    deque->bottom = novo;
+    deque->size++;
 }
-//ok
+
+
+// Adds a value as the first position in the deque
 void pushFront(Deque* deque, void* data){
-    Node * novo = malloc(sizeof(struct node));
-    novo->data = data;
-    novo->next = deque->top;
-    novo->prev = NULL;
-    deque->top = novo;
+    Node * new = malloc(sizeof(struct node));
+    new->data = data;
+    new->next = deque->top;
+    new->prev = NULL;
+    deque->top = new;
+    /* if it was empty before, also set the last pointer */
+    if (deque->size == 0) {
+        deque->bottom = new;
+    } 
+    /* otherwise update the previous last */
+    else {
+        new->next->prev = new;
+    }
+    deque->size++;
 }
-//ok
+
+
+// Removes the last element, which will be the return value
 void* pop(Deque* deque) {
     if (deque->bottom == NULL || deque->top == NULL) return NULL; // Return an appropriate error value or handle it as needed
 
@@ -48,37 +67,35 @@ void* pop(Deque* deque) {
     }
 
     free(temp);
+    deque->size--;
     return abort;
 }
 
-//OK
+// Returns the first element of deque, which will be deleted from deque and freed
 void* popFront(Deque* deque){
     if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return NULL;
     void * erased = deque->top->data;
     Node * temp = deque->top;
     deque->top = deque->top->next;
     nodeFree(temp);
+    deque->size--;
     return erased;
 }
 
 
-//ok
+// Counts the size -> IMPROVE NEEDED
 int size(Deque *deque){
-    if(deque == NULL || deque->top == NULL) return 0;
-    Node * temp = deque->top;
-    int size = 1;
-    for(;temp != deque->bottom;size++,temp = temp->next);
-    return size;
+    return deque->size;
 }
 
 
-//ok
+// Checks if deque is allocated
 bool isEmpty(Deque* deque){
-    if(deque == NULL || deque->top == NULL || deque->bottom == NULL) return false;
+    if(deque == NULL || deque->size == 0) return false;
     return true;
 }
 
-//Corrigir - ultimo elemento apagado por alguma razao
+// Reverses the deque
 void reverse(Deque* deque) {
     if (deque == NULL || deque->top == NULL || deque->bottom == NULL) return;
     Node * current = deque->top;
@@ -124,26 +141,29 @@ void reverse(Deque* deque) {
     printFunc(deque->bottom->data);*/
 }
 
-//ok
-void printFunc(void * data){
-    if(data == NULL) return;
-    int * value = (int *) data;
-    printf("%d",*value);
+// Casts data as int* and prints the value
+void printInt(void* i) {
+    int* i_ = i;
+    printf("%d", *i_);
 }
 
-//ok
+// Prints all values in deque, using printFunc() function
 void printDeque(Deque* deque, void(*printFunc)(void*)){
+    if(!deque){
+        printf("[]");
+        return;
+    }
     Node * current = deque->top;
     putchar('[');
     while(current){
         printFunc(current->data);
         current = current->next;
-        if(current != deque->bottom) printf("->");
+        if(current != NULL) printf(" -> ");
     }
-    putchar(']');
+    printf("]\n\n");
 }
 
-//ok
+// Free's every node of the deque, ultimatly freeing the deque
 void destroy(Deque* deque){
     Node * current = deque->top;
     Node * temp = NULL;
@@ -151,6 +171,7 @@ void destroy(Deque* deque){
         temp = current->next;
         nodeFree(current);
         current = temp;
+        deque->size--;
     }
     free(deque);
 }
