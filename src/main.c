@@ -11,7 +11,7 @@ int main(int argc,char **argv){
     const char *enter = "\n";
 
     //Abrir a stream
-    FILE* texto = fopen(argv[0],"r");
+    FILE* texto = fopen("commands.txt","r");
     if(!texto){
         perror("Erro");
         return 1;
@@ -40,23 +40,38 @@ int main(int argc,char **argv){
     fread(conteudoTexto,textoSize,1,texto);
     conteudoTexto[textoSize] = '\0';
 
+    //printf("%s",conteudoTexto);
+
     //Deque deques;
 
     Deque *deque = create();
 
-
     line = __strtok_r(conteudoTexto,enter,&saveptr);
+
+    int * values = malloc(sizeof(int) * BUFFERSIZE);
+        
+    Cmd *cmd = NULL;
+
+    int i = 0;
 
     while(line){
         //***   token is a string   *** 
-        Cmd *cmd = parseLine(line);
-        for(int i = 0;i < cmd->nargs;i++){
-            //printf("%s:%d\n",cmd->command,cmd->args[i]);
-            processCommand(deque,cmd);
-        }
-        free(cmd->command);
-        free(cmd->args);
-        free(cmd);
+        Cmd * cmds = NULL;
+
+        cmds = parseLine(line);
+
+        //if(cmd->nargs == 0) printf("%s\n", cmd->command);
+        //else for(int i = 0;i < cmd->nargs;printf("%s : %d\n",cmd->command,cmd->args[i]),i++);
+
+        saveCmd(&cmd[i],cmds);
+
+        processCommand(deque,&cmd[i]);
+        
+        saveValues(deque,values);
+        
+        i++;
+
+        //printDeque(deque,printInt);
         line = __strtok_r(NULL,enter,&saveptr);
     }
 
@@ -67,9 +82,14 @@ int main(int argc,char **argv){
     
     
     
+    free(cmd->command);
+    free(cmd->args);
+    free(cmd);
     
-    //free(line); 
+    free(values);
+    
     destroy(deque);
+    
     free(conteudoTexto);
     fclose(texto);
     return 0;

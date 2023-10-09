@@ -1,4 +1,5 @@
 #include "command_parser.h"
+#include "deque.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,49 +21,65 @@
 
 */
 
-void init(Cmd *cmd){
-	cmd->command = malloc(sizeof(char) * BUFFERSIZE);
+void printInt(void* i) {
+    int* i_ = NULL;
+	i_ = i;
+   	if(i_) printf("%d\n", *i_);
+	else printf("\tNULO\n\n");
+}
+
+
+Cmd* init(){
+	Cmd * cmd = malloc(sizeof(struct cmd));
+	cmd->command = NULL;
 	cmd->args = NULL;
-	cmd->nargs = 0;
+	cmd->nargs = 5;
+	return cmd;
 }
 
 void processCommand(Deque* deque, Cmd* cmd){
+	if(!cmd) return;
+	if(!deque){
+		deque = create();
+	}
+	//printf("%s : %ld\n",cmd->command,strlen(cmd->command));
 	if(!strcmp(cmd->command,"PUSH")){
-		for(int i = 0;i < cmd->nargs;push(deque,&cmd->args[i]),i++);
+		for(int i = 0;i < cmd->nargs;push(deque,&(cmd->args[i])),i++);
 		return;
 	}
-	if(!strcmp(cmd->command,"PUSH_FRONT")){
-		for(int i = 0;i < cmd->nargs;pushFront(deque,&cmd->args[i]),i++);
+	else if(!strcmp(cmd->command,"PUSH_FRONT")){
+		for(int i = 0;i < cmd->nargs;pushFront(deque,&(cmd->args[i])),i++);
 		return;
 	}
-	if(!strcmp(cmd->command,"POP")){
-		if(!deque){
-			printf("EMPTY");
+	else if(!strcmp(cmd->command,"POP")){
+		if(deque->last){
+			printf("EMPTY\n");
 			return;
 		}
 		printInt(pop(deque));
 		return;
  	}
- 	if(!strcmp(cmd->command,"POP_FRONT")){
- 		if(!deque){
- 			printf("EMPTY");
+ 	else if(!strcmp(cmd->command,"POP_FRONT")){
+ 		if(deque->first){
+ 			printf("EMPTY\n");
  			return;
  		}
  		printInt(popFront(deque));
  		return;
  	}
- 	if(!strcmp(cmd->command,"SIZE")){
+ 	else if(!strcmp(cmd->command,"SIZE")){
  		printf("%d",size(deque));
  		return;
  	}
- 	if(!strcmp(cmd->command,"REVERSE")){
+ 	else if(!strcmp(cmd->command,"REVERSE")){
  		reverse(deque);
  		return;
  	}
- 	if(!strcmp(cmd->command,"PRINT")){
- 		printDeque(deque,printInt);
+ 	else if(strcmp(cmd->command,"PRINT") == 0){
+ 		printDeque(deque,&printInt);
  		return;
  	}
+	
 }
 
 
@@ -115,19 +132,30 @@ void getCommand(Cmd * cmd,char * line){
 	char* token = __strtok_r(safe,espaco,&saveptr);
 	if(cmd->command) strcpy(cmd->command,token);
 	else {
-		cmd->command = malloc(sizeof(char) * strlen(token));
+		cmd->command = malloc(sizeof(char) * strlen(token) + 1);
 		strcpy(cmd->command,token);
 	}
 	free(safe);
 }
 
-Cmd* parseLine(char* line){
-	//if(!line) return NULL;
-	Cmd * cmd = malloc(sizeof(struct cmd));
-	init(cmd);
+Cmd * parseLine(char* line){
+	Cmd * cmd = init();
 	getCommand(cmd,line);
-	//printf("%s\n",cmd->command);
 	cmd->nargs = getNargs(line);
 	getArgs(cmd,line);
 	return cmd;
+}
+
+void saveCmd(Cmd * dest,Cmd * src){
+	if(!src) return;
+	if(!dest) dest = init();
+	dest->nargs = 1;
+	//dest->nargs = src->nargs;
+	dest->command = malloc(sizeof(char) * strlen(src->command));
+	strcpy(dest->command,src->command);
+	dest->args = malloc(sizeof(int) * dest->nargs);
+	if(dest)
+	for(int i = 0; i < dest->nargs;i++){
+		dest->args[i] = src->args[i];
+	}
 }

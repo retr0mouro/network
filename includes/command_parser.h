@@ -11,6 +11,10 @@ typedef struct cmd {
     int nargs; //número de argumentos
 } Cmd;
 
+void printInt(void *i);
+
+Cmd* init();
+
 void processCommand(Deque* deque, Cmd* cmd);
 
 int getNargs(char* line);
@@ -20,5 +24,7 @@ void getArgs(Cmd * cmd,char* line);
 void getCommand(Cmd * cmd,char * line);
 
 Cmd* parseLine(char* line);
+
+void saveCmd(Cmd * dest,Cmd * src);
 
 #endif
