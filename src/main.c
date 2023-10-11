@@ -11,7 +11,7 @@ int main(int argc,char **argv){
     const char *enter = "\n";
 
     //Abrir a stream
-    FILE* texto = fopen("commands.txt","r");
+    FILE* texto = fopen(argv[1],"r");
     if(!texto){
         perror("Erro");
         return 1;
@@ -62,8 +62,11 @@ int main(int argc,char **argv){
     while(line){
         //if(!&cmd[i]) cmd = realloc(cmd,) 
         cmd[i] = parseLine(line);
-        if(cmd[i].nargs != 0) for(int j = 0; j < cmd[i].nargs;printf("\n%s : %d\n", cmd[i].command, cmd[i].args[j]),j++);
-        else printf("%s\n",cmd[i].command);
+        //if(cmd[i].nargs != 0) for(int j = 0; j < cmd[i].nargs;printf("\n%s : %d\n", cmd[i].command, cmd[i].args[j]),j++);
+        //else printf("%s\n",cmd[i].command);
+
+        processCommand(deque,&cmd[i]);
+
         i++;
         line = __strtok_r(NULL,enter,&saveptr);
     }

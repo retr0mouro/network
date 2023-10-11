@@ -24,7 +24,7 @@
 void printInt(void* i) {
     int* i_ = NULL;
 	i_ = (int *) i;
-   	if(i_) printf("%d\n", *i_);
+   	if(i_) printf("%d", *i_);
 	else printf("\tNULO\n\n");
 }
 
@@ -132,6 +132,7 @@ void getCommand(Cmd * cmd,char * line){
 	char* token = __strtok_r(safe,espaco,&saveptr);
 	cmd->command = malloc(sizeof(char) * (strlen(token) + 1));
 	strcpy(cmd->command,token);
+	
 	free(safe);
 }
 
