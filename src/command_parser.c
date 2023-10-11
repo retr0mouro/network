@@ -23,7 +23,7 @@
 
 void printInt(void* i) {
     int* i_ = NULL;
-	i_ = i;
+	i_ = (int *) i;
    	if(i_) printf("%d\n", *i_);
 	else printf("\tNULO\n\n");
 }
@@ -31,6 +31,9 @@ void printInt(void* i) {
 
 Cmd* init(){
 	Cmd * cmd = malloc(sizeof(struct cmd));
+	cmd->command = NULL;
+	cmd->nargs = 0;
+	cmd->args = NULL;
 	return cmd;
 }
 
@@ -102,7 +105,6 @@ void getArgs(Cmd * cmd,char* line){
 	char * token = NULL;
 	char * saveptr;
 	token = __strtok_r(safe,espaco,&saveptr);
-	int i = 0;
 	if(cmd->nargs == 0){
 		free(safe);
 		return;
@@ -112,8 +114,9 @@ void getArgs(Cmd * cmd,char* line){
 		free(safe);
 		return;
 	}
-	for(;i < cmd->nargs;i++){
-		token = __strtok_r(NULL,espaco,&saveptr);
+	for(int i = 0;i < cmd->nargs;i++){
+		if(i+1 == cmd->nargs) token = __strtok_r(NULL,"\n",&saveptr);
+		else token = __strtok_r(NULL,espaco,&saveptr);	
 		int n = atoi(token);
 		cmd->args[i] = n;
 	}
@@ -127,27 +130,25 @@ void getCommand(Cmd * cmd,char * line){
 	strcpy(safe,line);
 	char* saveptr;
 	char* token = __strtok_r(safe,espaco,&saveptr);
-	if(cmd->command) strcpy(cmd->command,token);
-	else {
-		cmd->command = malloc(sizeof(char) * strlen(token) + 1);
-		strcpy(cmd->command,token);
-	}
+	cmd->command = malloc(sizeof(char) * (strlen(token) + 1));
+	strcpy(cmd->command,token);
 	free(safe);
 }
 
-Cmd * parseLine(char* line){
-	Cmd * cmd = init();
-	getCommand(cmd,line);
-	cmd->nargs = getNargs(line);
-	getArgs(cmd,line);
+Cmd parseLine(char* line){
+	Cmd cmd;
+	getCommand(&cmd,line);
+	cmd.nargs = getNargs(line);
+	if(cmd.nargs != 0) getArgs(&cmd,line);
 	return cmd;
 }
 
 void saveCmd(Cmd * dest,Cmd * src){
 	if(!src) return;
-	if(!dest) dest = init();
+	//dest = malloc(sizeof(struct cmd));
 	dest->nargs = src->nargs;
-	dest->command = malloc(sizeof(char) * strlen(src->command));
+	int len = strlen(src->command) + 1;
+	dest->command = malloc(sizeof(char) * len);
 	strcpy(dest->command,src->command);
 	if(dest->nargs != 0){
 		dest->args = malloc(sizeof(int) * src->nargs);

@@ -13,7 +13,7 @@ typedef struct cmd {
 
 void printInt(void *i);
 
-Cmd* init();
+Cmd * init();
 
 void processCommand(Deque* deque, Cmd* cmd);
 
@@ -23,7 +23,7 @@ void getArgs(Cmd * cmd,char* line);
 
 void getCommand(Cmd * cmd,char * line);
 
-Cmd* parseLine(char* line);
+Cmd parseLine(char* line);
 
 void saveCmd(Cmd * dest,Cmd * src);
 

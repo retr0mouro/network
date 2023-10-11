@@ -28,7 +28,7 @@ int main(int argc,char **argv){
     //alocar string
     char* conteudoTexto = malloc((textoSize + 1) * sizeof(char));
     if(!conteudoTexto){
-        perror("Alocação de memória falhou");
+        perror("Alocação de memória falhou\n");
         fclose(texto);
         return 1;
     }
@@ -48,45 +48,34 @@ int main(int argc,char **argv){
 
     line = __strtok_r(conteudoTexto,enter,&saveptr);
         
-    Cmd *cmd = NULL;
+    Cmd *cmd = malloc(sizeof(struct cmd) * BUFFERSIZE);
+    if(!cmd){
+        perror("Alocação comando falhou\n");
+        destroy(deque);
+        free(conteudoTexto);
+        fclose(texto);
+        return 1;
+    }
 
     int i = 0;
 
     while(line){
-        //***   token is a string   *** 
-        Cmd * cmds = NULL;
-
-        cmds = parseLine(line);
-
-        //if(cmd->nargs == 0) printf("%s\n", cmd->command);
-        //else for(int i = 0;i < cmd->nargs;printf("%s : %d\n",cmd->command,cmd->args[i]),i++);
-
-        saveCmd(&cmd[i],cmds);
-
-        processCommand(deque,&cmd[i]);  
-        
+        //if(!&cmd[i]) cmd = realloc(cmd,) 
+        cmd[i] = parseLine(line);
+        if(cmd[i].nargs != 0) for(int j = 0; j < cmd[i].nargs;printf("\n%s : %d\n", cmd[i].command, cmd[i].args[j]),j++);
+        else printf("%s\n",cmd[i].command);
         i++;
-
-        //printDeque(deque,printInt);
         line = __strtok_r(NULL,enter,&saveptr);
-
-        free(cmds->command);
-        free(cmds->args);
-        free(cmd);
     }
-
-
-
-    memset(conteudoTexto,'A',textoSize);
-    conteudoTexto[textoSize] = '\0';
+        
     
-    
-    for(;i > 0;i++){
-        free((cmd[i]).command);
-        free(cmd[i].args);
-        free(cmd);
+    for(int j = 0;j < i;j++){
+        free(cmd[j].command);
+        if(cmd[j].nargs != 0) free(cmd[j].args);
     }
-    
+    free(cmd);
+
+
     destroy(deque);
     
     free(conteudoTexto);
