@@ -47,8 +47,6 @@ int main(int argc,char **argv){
     Deque *deque = create();
 
     line = __strtok_r(conteudoTexto,enter,&saveptr);
-
-    int * values = malloc(sizeof(int) * BUFFERSIZE);
         
     Cmd *cmd = NULL;
 
@@ -65,14 +63,16 @@ int main(int argc,char **argv){
 
         saveCmd(&cmd[i],cmds);
 
-        processCommand(deque,&cmd[i]);
-        
-        saveValues(deque,values);
+        processCommand(deque,&cmd[i]);  
         
         i++;
 
         //printDeque(deque,printInt);
         line = __strtok_r(NULL,enter,&saveptr);
+
+        free(cmds->command);
+        free(cmds->args);
+        free(cmd);
     }
 
 
@@ -81,12 +81,11 @@ int main(int argc,char **argv){
     conteudoTexto[textoSize] = '\0';
     
     
-    
-    free(cmd->command);
-    free(cmd->args);
-    free(cmd);
-    
-    free(values);
+    for(;i > 0;i++){
+        free((cmd[i]).command);
+        free(cmd[i].args);
+        free(cmd);
+    }
     
     destroy(deque);
     

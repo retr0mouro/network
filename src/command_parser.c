@@ -31,9 +31,6 @@ void printInt(void* i) {
 
 Cmd* init(){
 	Cmd * cmd = malloc(sizeof(struct cmd));
-	cmd->command = NULL;
-	cmd->args = NULL;
-	cmd->nargs = 5;
 	return cmd;
 }
 
@@ -149,13 +146,13 @@ Cmd * parseLine(char* line){
 void saveCmd(Cmd * dest,Cmd * src){
 	if(!src) return;
 	if(!dest) dest = init();
-	dest->nargs = 1;
-	//dest->nargs = src->nargs;
+	dest->nargs = src->nargs;
 	dest->command = malloc(sizeof(char) * strlen(src->command));
 	strcpy(dest->command,src->command);
-	dest->args = malloc(sizeof(int) * dest->nargs);
-	if(dest)
-	for(int i = 0; i < dest->nargs;i++){
-		dest->args[i] = src->args[i];
+	if(dest->nargs != 0){
+		dest->args = malloc(sizeof(int) * src->nargs);
+		for(int i = 0; i < dest->nargs;i++){
+			dest->args[i] = src->args[i];
+		}
 	}
 }
