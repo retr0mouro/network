@@ -12,6 +12,5 @@ typedef struct cliente
 
 } Cliente;
 
-unsigned int getCC(Cliente * cliente);
 
 #endif
