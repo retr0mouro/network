@@ -4,20 +4,20 @@
 #include "stack.h"
 #include <time.h>
 
+
 typedef struct cliente
 {
 	unsigned int cc;
 	char *nome;
-	time_t data;
+	struct tm date;
 	char *morada;
 
 } Cliente;
 
-enum Servicos{
-	CC,
-	SS,
-	GALP
-};
+typedef struct servico{
+	char* nome;
+	struct stack waitline;
+} Servico;
 
 typedef struct balcao
 {
@@ -26,19 +26,21 @@ typedef struct balcao
 	char * local;
 	struct tm horario1[2];
 	struct cliente * listaClientes;
-	struct stack waitline;
-	enum Servicos servicos;
+	struct servico * servicos;
 } Balcao;
 
+void initClientes();
 
-Cliente getCliente(Cliente * listaClientes, unsigned int cc);
+void initBalcoes();
+
+Cliente getCliente(unsigned int cc);
 
 Cliente * getListaClientes(unsigned int id);
 
-void addCliente(Stack * stack,unsigned int id,unsigned int cc,enum Servicos servicos);
+void addCliente(unsigned int id,unsigned int cc,Servico servico);
 
 Cliente * removeCliente(Stack * stack);
 
-int * prioridade80(Stack * stack);
+int prioridade80(Cliente * cliente);
 
 #endif

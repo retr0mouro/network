@@ -14,6 +14,8 @@ typedef struct stack {
     void (*printFunc)(void *);
 } Stack;
 
+void printc(void * data);
+
 Stack * stackCreate(void (*printFunc)(void *));
 
 void stackPush(Stack * stack, void * data);
@@ -21,5 +23,7 @@ void stackPush(Stack * stack, void * data);
 void * stackPop(Stack * stack);
 
 void stackPrint(Stack * stack);
+
+void stackDestroy(Stack * stack);
 
 #endif

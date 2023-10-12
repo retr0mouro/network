@@ -1,3 +1,13 @@
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	Operaçoes:
 		*Consultar informação cliente (fornecer num de cc)
 		*Consultar lista de clientes de um balcao (fornecer id)
