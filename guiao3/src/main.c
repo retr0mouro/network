@@ -4,11 +4,16 @@
 #include "stack.h"
 
 int main(int argc, char **argv){
-    initClientes();
-    initBalcoes();
+
+    Cliente database[5];
+
+    Balcao balcao1;
+
+    initClientes(database);
+    initBalcoes(&balcao1,database);
 
 
-    
+    printaBalcao(&balcao1);
 
 
 

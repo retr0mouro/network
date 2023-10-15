@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Iincludes -g
 
-sources := src/main.c src/deque.c src/command_parser.c
+sources := src/main.c src/stack.c src/balcao.c
 
 objects := $(sources:.c=.o)
 

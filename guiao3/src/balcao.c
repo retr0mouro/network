@@ -1,12 +1,9 @@
 #include "balcao.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
-static Cliente database[5];
-
-static Balcao balcao1;
-
-void initClientes(){
+void initClientes(Cliente * database){
 	database[0].nome = "Jipow";
 	database[0].cc = 12340;
 	database[0].date.tm_year = 20;
@@ -33,38 +30,40 @@ void initClientes(){
 	database[4].morada = "Rua 5"; 
 }
 
-void initBalcoes(){
-	balcao1.nome = "01";
-	balcao1.id = 22340;
-	balcao1.local = "Braga";
-	balcao1.horario1[0].tm_hour = 9; 
-	balcao1.horario1[1].tm_hour = 17; 
-	balcao1.listaClientes = NULL;
-	balcao1.servicos = NULL;
+void initBalcoes(Balcao * balcao1, Cliente * database){
+	balcao1->nome = "01";
+	balcao1->id = 22340;
+	balcao1->local = "Braga";
+	balcao1->horario1[0].tm_hour = 9; 
+	balcao1->horario1[1].tm_hour = 17; 
+	balcao1->listaClientes = database;
+	balcao1->servicos = NULL;
 }
 
-Cliente getCliente(unsigned int cartao){
+Cliente getCliente(Cliente * database, unsigned int cartao){
 	for(int i = 0;i < 5;i++){
 		if(database[i].cc == cartao) return database[i];
 	}
+	printf("Não existe");
 }
 
-Cliente * getListaClientes(unsigned int id){
-	if(balcao1.id == id) return balcao1.listaClientes;
+Cliente * getListaClientes(Balcao * balcao1, unsigned int id){
+	if(balcao1->id == id) return balcao1->listaClientes;
+	return NULL;
 }
 
-void addCliente(unsigned int id,unsigned int cc,Servico servico){
-	if(balcao1.id == id){
-		if(!balcao1.servicos){
-			balcao1.servicos = malloc(sizeof(struct servico));
-			balcao1.servicos->nome = malloc(sizeof(char) * strlen(servico.nome));
-			strcpy(balcao1.servicos->nome,servico.nome);
-			balcao1.servicos->waitline.top = NULL;
+void addCliente(Balcao * balcao1, unsigned int id,unsigned int cc,Servico servico){
+	if(balcao1->id == id){
+		if(!balcao1->servicos){
+			balcao1->servicos = malloc(sizeof(struct servico));
+			balcao1->servicos->nome = malloc(sizeof(char) * strlen(servico.nome));
+			strcpy(balcao1->servicos->nome,servico.nome);
+			balcao1->servicos->waitline.top = NULL;
 		}
-		if(!strcmp(balcao1.servicos->nome,servico.nome)){
+		if(!strcmp(balcao1->servicos->nome,servico.nome)){
 			Cliente * novo = malloc(sizeof(struct cliente));
-			*novo = getCliente(cc);
-			stackPush(&balcao1.servicos->waitline,&novo);
+			*novo = getCliente(balcao1->listaClientes,cc);
+			stackPush(&balcao1->servicos->waitline,&novo);
 		}
 	}
 }
@@ -75,4 +74,8 @@ Cliente * removeCliente(Stack * stack){
 
 int prioridade80(Cliente * cliente){
 		return cliente->date.tm_year >= 80;
+}
+
+void printaBalcao(Balcao * balcao1){
+	stackPrint(&(balcao1->servicos->waitline));
 }

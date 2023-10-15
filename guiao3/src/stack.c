@@ -36,11 +36,15 @@ void * stackPop(Stack * stack){
 }
 
 void stackPrint(Stack * stack){
+    if(!stack) return;
     Node * topo = stack->top;
+    putchar('[');
     while(stack->top){
-        stack->printFunc;
+        stack->printFunc(stack->top->data);
+        printf(" -> ");
         stack->top = stack->top->next;
     }
+    putchar(']');
     stack->top = topo;
 }
 

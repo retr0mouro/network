@@ -29,18 +29,20 @@ typedef struct balcao
 	struct servico * servicos;
 } Balcao;
 
-void initClientes();
+void initClientes(Cliente * database);
 
-void initBalcoes();
+void initBalcoes(Balcao * balcao1, Cliente * database);
 
-Cliente getCliente(unsigned int cc);
+Cliente getCliente(Cliente * database, unsigned int cc);
 
-Cliente * getListaClientes(unsigned int id);
+Cliente * getListaClientes(Balcao * balcao1,unsigned int id);
 
-void addCliente(unsigned int id,unsigned int cc,Servico servico);
+void addCliente(Balcao * balcao1, unsigned int id,unsigned int cc,Servico servico);
 
 Cliente * removeCliente(Stack * stack);
 
 int prioridade80(Cliente * cliente);
+
+void printaBalcao(Balcao * balcao1);
 
 #endif
