@@ -16,7 +16,7 @@ typedef struct cliente
 
 typedef struct servico{
 	char* nome;
-	struct stack waitline;
+	struct stack * waitline;
 } Servico;
 
 typedef struct balcao
@@ -26,14 +26,14 @@ typedef struct balcao
 	char * local;
 	struct tm horario1[2];
 	struct cliente * listaClientes;
-	struct servico * servicos;
+	Servico servicos;
 } Balcao;
 
 void initClientes(Cliente * database);
 
 void initBalcoes(Balcao * balcao1, Cliente * database);
 
-Cliente getCliente(Cliente * database, unsigned int cc);
+Cliente * getCliente(Cliente * database, unsigned int cc);
 
 Cliente * getListaClientes(Balcao * balcao1,unsigned int id);
 

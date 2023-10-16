@@ -12,10 +12,13 @@ int main(int argc, char **argv){
     initClientes(database);
     initBalcoes(&balcao1,database);
 
+    if(!balcao1.servicos.waitline) printf("Nao ha fila\n");
 
+    addCliente(&balcao1,22340,12344,balcao1.servicos);
+    
     printaBalcao(&balcao1);
 
-
+    stackDestroy(balcao1.servicos.waitline);
 
     return 0;
 }
