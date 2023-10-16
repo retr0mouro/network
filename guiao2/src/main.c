@@ -22,7 +22,7 @@ int main(int argc,char **argv){
     referir a distancia do ultimo
     voltar ao inicio do texto*/
     fseek(texto,0,SEEK_END);
-    long int textoSize = ftell(texto);
+    const long int textoSize = ftell(texto);
     rewind(texto);
 
     //alocar string
@@ -60,10 +60,7 @@ int main(int argc,char **argv){
     int i = 0;
 
     while(line){
-        //if(!&cmd[i]) cmd = realloc(cmd,) 
         cmd[i] = parseLine(line);
-        //if(cmd[i].nargs != 0) for(int j = 0; j < cmd[i].nargs;printf("\n%s : %d\n", cmd[i].command, cmd[i].args[j]),j++);
-        //else printf("%s\n",cmd[i].command);
 
         processCommand(deque,&cmd[i]);
 

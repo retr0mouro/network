@@ -5,11 +5,7 @@
 
 //strsep(&string,char delimitador);
 
-typedef struct cmd {
-    char* command;
-    int* args; //NULL se ñ houver argumentos
-    int nargs; //número de argumentos
-} Cmd;
+typedef struct cmd Cmd;
 
 void printInt(void *i);
 

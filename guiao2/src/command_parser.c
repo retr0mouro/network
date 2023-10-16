@@ -21,6 +21,12 @@
 
 */
 
+typedef struct cmd {
+    char* command;
+    int* args; //NULL se ñ houver argumentos
+    int nargs; //número de argumentos
+} Cmd;
+
 void printInt(void* i) {
     int* i_ = NULL;
 	i_ = (int *) i;

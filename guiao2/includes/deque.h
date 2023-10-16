@@ -4,28 +4,19 @@
 #include <stdbool.h>
 
 /* Base node struct, with pointers to the previous and next nodes */
-typedef struct node {
-    void* data;
-    struct node* prev;
-    struct node* next;
-} Node;
+typedef struct node Node;
 
 /* Double-ended queue struct (https://en.wikipedia.org/wiki/Double-ended_queue) */
-typedef struct deque {
-    int size;
-    Node* first;
-    Node* last;
-    bool reversed;
-} Deque;
+typedef struct deque Deque;
 
 /* Creates an empty deque */
 Deque* create();
 
 /* Adds an element to the end of the deque */
-void push(Deque* deque, void* data);
+void push(Deque* deque, const void* data);
 
 /* Adds an element to the begin of the deque */
-void pushFront(Deque* deque, void* data);
+void pushFront(Deque* deque, const void* data);
 
 /* Removes the first element in the deque and returns it; returns null if empty */
 void* pop(Deque* deque);

@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef struct node {
+    void* data;
+    struct node* prev;
+    struct node* next;
+} Node;
+
+typedef struct deque {
+    int size;
+    Node* first;
+    Node* last;
+    bool reversed;
+} Deque;
+
 
 Deque* create() {
     Deque* deque = malloc(sizeof(Deque));
@@ -13,7 +26,7 @@ Deque* create() {
 }
 
 
-static void _push(Deque* deque, void* data) {
+static void _push(Deque* deque,const void* data) {
     Node* new = malloc(sizeof(Node));
     new->data = data;
     new->prev = deque->last;
@@ -31,7 +44,7 @@ static void _push(Deque* deque, void* data) {
 }
 
 
-static void _pushFront(Deque* deque, void* data) {
+static void _pushFront(Deque* deque, const void* data) {
     Node* new = malloc(sizeof(Node));
     new->data = data;
     new->next = deque->first;
@@ -93,7 +106,7 @@ static void* _popFront(Deque* deque) {
 }
 
 
-void push(Deque* deque, void* data) {
+void push(Deque* deque, const void* data) {
     if (!deque->reversed) {
         _push(deque, data);
     }
@@ -103,7 +116,7 @@ void push(Deque* deque, void* data) {
 }
 
 
-void pushFront(Deque* deque, void* data) {
+void pushFront(Deque* deque, const void* data) {
     if (!deque->reversed) {
         _pushFront(deque, data);
     }
