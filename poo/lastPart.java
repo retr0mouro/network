@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.time.LocalDateTime;
 
 public class lastPart{
     public static void main(String[] args){
@@ -36,6 +36,9 @@ public class lastPart{
                 a = line.nextInt();
                 System.out.println(a + "! = " +f.factorial(a));
                 break;
+            case "7":
+                System.out.println("Demorou " + f.tempoGasto() + " milisegundos");
+                break;
             default:
                 System.out.println("Nada válido foi inserido!");
                 break;
@@ -68,6 +71,14 @@ public class lastPart{
                 f *= i;
             }
             return f;
+        }
+        public long tempoGasto(){
+            LocalDateTime start = LocalDateTime.now();
+            long nothing = factorial(5000);
+            LocalDateTime end = LocalDateTime.now();
+            int interval = end.getNano() - start.getNano();
+            long answer = interval / 1000000;
+            return answer;
         }
     }
 }
