@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.DayOfWeek;
 
 public class TestePrograma{
     public static void main(String[] args){
@@ -11,7 +12,28 @@ public class TestePrograma{
         int n = 0;
         switch(exe){
             case 1:
+                int year10 = line.nextInt();
+                int month10 = line.nextInt();
+                int day10 = line.nextInt();
+                
+                LocalDateTime date = LocalDateTime.of(year10,month10,day10,0,0,0);
+
+
+                int ans = (year10 - 1900) * 365;
+                ans += (year10 - 1900) / 4;
+                if((month10 == 1 || month10 == 2) && // condicao para somar
+                 ((year10 % 4 == 0 && year10 % 100 != 0) || (year10 % 4 != 0 && year10 % 100 == 0))){ // condicao para ser bisexto
+                    ans--;
+                }
+
+                ans += date.getDayOfYear();
+
+                ans = ans % 7;
+
+                System.out.println(DayOfWeek.of(ans));
+
                 break;
+            
             case 2:
                 int year1 = line.nextInt();
                 int month1 = line.nextInt();

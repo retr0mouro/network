@@ -3,17 +3,22 @@ SRC1 = $(wildcard guiao1/*.c)
 
 OBJ1 = $(SRC1:.c=.o)
 
-.PHONY: guiao1 all clean cout
+CFLAGS = -Wall -g 
 
-all : mcat
+.PHONY: guiao1 all compile cat cp clean cout
 
-mcat : $(OBJ1)
-        gcc -o $@ $^
+all : compile
+
+cat : $(compile)
+	gcc $(CFLAGS) -o mycat guiao1/mycat.o
+
+cp : $(compile)
+	gcc $(CFLAGS) -o mycp guiao1/mycp.o
+
+compile : $(OBJ1)
 
 clean : 
-        rm -f guiao1/*.o mcat
+	rm -f guiao1/*.o mycat mycp 
 
 cout : 
-        rm -f mcat
-~                                                                                                                                     
-~                           
+	rm -f mycat mycp
