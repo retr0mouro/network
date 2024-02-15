@@ -5,9 +5,12 @@ OBJ1 = $(SRC1:.c=.o)
 
 CFLAGS = -Wall -g 
 
-.PHONY: guiao1 all compile cat cp clean cout
+.PHONY: guiao1 all compile cat cp pessoas clean cout
 
-all : compile
+all : $(compile)
+
+pessoas : $(compile)
+	gcc $(CFLAGS) -o pessoas guiao1/pessoas.o
 
 cat : $(compile)
 	gcc $(CFLAGS) -o mycat guiao1/mycat.o
