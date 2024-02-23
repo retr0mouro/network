@@ -35,7 +35,9 @@ int main(int argc, char* argv[]){
     {
 	int fd = open("./pessoas.db",O_RDONLY,0666);
 	lseek(fd,0,SEEK_SET);
-        for(int i = 0;i < (unsigned short) atoi(argv[2]);i++){
+	char end;
+        for(int i = 0;(i < (unsigned short) atoi(argv[2])) && (end = read(fd,&end,sizeof(end)) > 0);i++){
+		lseek(fd,-sizeof(end),SEEK_CUR);
 		printPerson(fd);
 	}
 	if((close(fd)) != 0){
