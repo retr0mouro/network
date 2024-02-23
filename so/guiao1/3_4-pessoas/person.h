@@ -1,3 +1,5 @@
+#define SIZE 64
+
 typedef struct person Person;
 
 void insertPerson(int,char*,unsigned short);
@@ -8,6 +10,6 @@ int setPersonName(int,char*);
 
 unsigned short getPersonAge(int);
 
-int setPersonAge(int,unsigned short);
+int setPersonAge(int,char *,char *);
 
 void printPerson(int);

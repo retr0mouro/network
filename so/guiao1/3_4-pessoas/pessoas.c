@@ -49,7 +49,12 @@ int main(int argc, char* argv[]){
 
     if ( strcmp(argv[1],"-u") == 0 )
     {
-        
+	int fd = open("./pessoas.db",O_RDWR,0666);
+	if(fd != 0){
+		return setPersonAge(fd,argv[2],argv[3]);
+	}
+	perror("Não abriu o ficheiro");
+	return 1;
     }
 
     if ( strcmp(argv[1],"-o") == 0 )

@@ -70,9 +70,19 @@ unsigned short  getPersonAge(int filed){
 	return age;
 }
 
-int setPersonAge(int filed,unsigned short age){
-	lseek(filed,SIZE,SEEK_CUR);
-	return write(filed,&age,sizeof(unsigned short));	
+int setPersonAge(int fd,char * name,char * age){
+	lseek(fd,0,SEEK_SET);
+	char buffer[SIZE];
+	//char ageString[sizeof(unsigned short)];
+	while((read(fd,buffer,SIZE)) > 0){
+		if(strcmp(name,buffer) == 0){
+			//ageToString(ageString,age);
+			write(fd,age,sizeof(ageToString));
+			return 0;
+		}
+		lseek(fd,sizeof(struct person) - SIZE,SEEK_CUR);
+	}
+	return 1;
 }
 
 void printPerson(int fd){
@@ -80,5 +90,3 @@ void printPerson(int fd){
 	read(fd,&buffer,sizeof(struct person));
 	write(STDOUT_FILENO,buffer,sizeof(struct person));
 }
-
-
