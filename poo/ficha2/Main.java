@@ -1,10 +1,14 @@
 import java.util.Scanner;
+import pacote.Implementacao;    
 
 public class Main{
     public static void main(String[] args){
         Scanner line = new Scanner(System.in);
+        Implementacao f = new Implementacao();
 
         int[] array1 = readInts(line);
+
+        System.out.println("O minimo do array é : " + f.findMin(array1));
 
         line.close();
     }   
@@ -22,7 +26,7 @@ public class Main{
         for(int i = 1;i < size;i++){
             System.out.print(" -> " + array[i]);
         }
-        System.out.print(" ]");
+        System.out.println(" ]");
         return array;
     }
 }
