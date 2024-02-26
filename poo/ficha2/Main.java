@@ -47,16 +47,18 @@ public class Main{
                 Datas d = new Datas(line.nextInt());
                 switch(line.nextInt()){
                     case 1:
-                        System.out.print("Insira o ano: ");
-                        int year = line.nextInt();
-                        System.out.print("Insira o mes: ");
-                        int month = line.nextInt();
-                        System.out.print("Insira o dia: ");
-                        int day = line.nextInt();
-                        LocalDate data = LocalDate.of(year,day,month);
+                        LocalDate data = readDate(line);
                         d.insereData(data);
                         break;
                     case 2:
+                        data = readDate(line);
+                        LocalDate next = d.dataMaisProxima(data);
+                        System.out.println("Data mais próxima: " + next.getYear() + "/" + next.getMonthValue() + "/" + next.getDayOfMonth());
+                        break;
+                    case 3:
+                        data = readDate(line);
+                        System.out.println(d.toString(data));
+                        break;
                 }
                 break;
             default:
@@ -79,5 +81,19 @@ public class Main{
         System.out.println("Array inserido:");
         f.printArray(array,size);
         return array;
+    }
+    private static LocalDate readDate(Scanner line){
+        System.out.print("Insira o ano: ");
+        int year = line.nextInt();
+
+        System.out.print("Insira o mes: ");
+        int month = line.nextInt();
+
+        System.out.print("Insira o dia: ");
+        int day = line.nextInt();
+
+        LocalDate data = LocalDate.of(year,month,day);
+
+        return data;
     }
 }
