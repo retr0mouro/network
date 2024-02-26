@@ -1,12 +1,14 @@
 import java.util.Scanner;
-import pacote.Implementacao;    
+import pacote.Implementacao;   
+import pacote.Datas; 
+import java.time.LocalDate;
 
 public class Main{
     public static void main(String[] args){
         Scanner line = new Scanner(System.in);
-        Implementacao f = new Implementacao();
         switch(line.nextInt()){
             case 1:
+                Implementacao f = new Implementacao();
                 switch(line.nextInt()){
                     case 1:
                         int[] array1 = readInts(line);
@@ -38,6 +40,23 @@ public class Main{
                     default:
                         System.out.println("Não existem mais funções!");
                         break;
+                }
+                break;
+            case 2:
+                System.out.print("Insira o tamanho do array: ");
+                Datas d = new Datas(line.nextInt());
+                switch(line.nextInt()){
+                    case 1:
+                        System.out.print("Insira o ano: ");
+                        int year = line.nextInt();
+                        System.out.print("Insira o mes: ");
+                        int month = line.nextInt();
+                        System.out.print("Insira o dia: ");
+                        int day = line.nextInt();
+                        LocalDate data = LocalDate.of(year,day,month);
+                        d.insereData(data);
+                        break;
+                    case 2:
                 }
                 break;
             default:
