@@ -3,8 +3,8 @@
 compile: Main.java
 	javac Main.java
 
-update: Implementacao.java
-	javac -d . Implementacao.java
+update: pacote/Implementacao.java
+	javac -d . pacote/Implementacao.java
 
 exe: $(compile)
 	java Main

@@ -31,7 +31,10 @@ public class Main{
                         novo = readInts(line);
                         //int[] comuns = 
                         int[] comuns = f.common(array1,novo);
+                        array1 = null;
+                        novo = null;
                         f.printArray(comuns,comuns.length);
+                        break;
                     default:
                         System.out.println("Não existem mais funções!");
                         break;
