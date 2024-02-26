@@ -14,6 +14,10 @@ public class Main{
                 System.out.println("A pressão é " + s.getPressao());
                 s = null;
                 break;
+            case 3:
+                Telemovel t = new Telemovel();
+                System.out.println(t.toString());
+                break;
             default:
                 System.err.println("Funcao nao implementada");
                 break;

@@ -1,5 +1,8 @@
 package pacote;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Telemovel{
     private String marca;
     private String modelo;
@@ -15,6 +18,14 @@ public class Telemovel{
     private String[] appNames;
     
     
+    @Override
+    public String toString() {
+        return "Telemovel [marca=" + this.marca + ", modelo=" + this.modelo + ", x=" + this.x + ", y=" + this.y + ", smsStorage="
+                + smsStorage + ", totalStorage=" + this.totalStorage + ", picStorage=" + this.picStorage + ", appStorage="
+                + appStorage + ", totalOccupiedStorage=" + this.totalOccupiedStorage + ", picNum=" + this.picNum + ", appNum="
+                + appNum + ", appNames=" + Arrays.toString(this.appNames) + "]";
+    }
+
     public String getMarca() {
         return marca;
     }
@@ -153,5 +164,28 @@ public class Telemovel{
     public String[] getAppNames() {
         return appNames;
     }
+
+
+    public boolean existeEspaco(int nb){
+        return (totalOccupiedStorage + nb) <= totalStorage;
+    }
     
+    public void instalaApp(String nome,int tamanho){
+        if(this.appStorage + tamanho > this.totalStorage || this.appNames.length >= this.appNum){
+            System.out.println("Não existe armazenamento suficiente!");
+            return;
+        }
+        for(int i = 0;i < this.appNames.length;i++){
+            if(this.appNames[i] != null){
+                continue;
+            }
+            this.appNames[i] = String.copyValueOf(nome.toCharArray());
+            this.appNum++;
+        }
+    }
+
+    public void recebeMsg(String msg){
+        // resolver
+    }
+
 }
