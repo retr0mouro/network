@@ -19,12 +19,39 @@ public class Implementacao{
         }
         return window;
     }
-    public void common(int[] a,int[] b){
+    public int[] common(int[] a,int[] b){
+        int[] common;
+        if(a.length > b.length){
+            common = new int[a.length]; 
+        }else{
+            common = new int[b.length];
+        }
         mergeSort(a,a.length);
-        printArray(a,a.length);
+        //printArray(a,a.length);
         mergeSort(b,b.length);
-        printArray(b,b.length);
-        
+        //printArray(b,b.length);
+        int index = 0;
+        for(int i = 0;i < a.length;i++){
+            for(int j = 0;j < b.length;j++){
+                if(a[i] == b[j]){
+                    int flag = 0;
+                    for(int w = 0;w < common.length;w++){
+                        if(a[i] == common[w]){
+                            flag = 1;
+                        }
+                    }
+                    if(flag == 0){
+                        common[index] = a[i];
+                        index++;
+                    }
+                }
+            }
+        }
+        int[] real = new int[index + 1];
+        for(int i = 0;i <= index;i++){
+            real[i] = common[i];
+        }
+        return real;
     }
     public void mergeSort(int[] array,int length){
         mSortRecursion(array,0,length - 1);

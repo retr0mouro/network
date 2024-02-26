@@ -30,7 +30,8 @@ public class Main{
                         array1 = readInts(line);
                         novo = readInts(line);
                         //int[] comuns = 
-                        f.common(array1,novo);
+                        int[] comuns = f.common(array1,novo);
+                        f.printArray(comuns,comuns.length);
                     default:
                         System.out.println("Não existem mais funções!");
                         break;
@@ -55,11 +56,6 @@ public class Main{
         }
         System.out.println("Array inserido:");
         f.printArray(array,size);
-        /*System.out.print("[ " + array[0]);
-        for(int i = 1;i < size;i++){
-            System.out.print(" -> " + array[i]);
-        }
-        System.out.println(" ]");*/
         return array;
     }
 }
