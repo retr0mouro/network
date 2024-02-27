@@ -1,5 +1,6 @@
 package pacote;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 public class Youtube{
@@ -149,5 +150,20 @@ public class Youtube{
         }
     }
 
+    public long qtsDiasDepois(){
+        LocalDate today = LocalDate.now();
+        Duration duration = Duration.between(today,this.uploadDate);
+        return duration.toDays(); 
+    }
 
+    public void thumbsUp(){
+        this.likes++;
+    }
+
+    public String processa(){
+        String conteudo = new String(this.content);
+        return conteudo;
+    }
+
+    
 }
