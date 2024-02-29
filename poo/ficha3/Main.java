@@ -18,6 +18,9 @@ public class Main{
                 Telemovel t = new Telemovel();
                 System.out.println(t.toString());
                 break;
+            case 4:
+                Futebol jogo = new Futebol("Benfica", "Porto", 0, "P");
+                break;
             default:
                 System.err.println("Funcao nao implementada");
                 break;

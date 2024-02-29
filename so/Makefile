@@ -1,5 +1,5 @@
 
-SRC1 = $(wildcard guiao1/*.c)
+SRC1 = $(wildcard ficheiros/*.c)
 
 OBJ1 = $(SRC1:.c=.o)
 
@@ -10,18 +10,18 @@ CFLAGS = -Wall -g
 all : $(compile)
 
 pessoas : $(compile)
-	gcc $(CFLAGS) -o pessoas guiao1/pessoas.o
+	gcc $(CFLAGS) -o pessoas ficheiros/pessoas.o
 
 cat : $(compile)
-	gcc $(CFLAGS) -o mycat guiao1/mycat.o
+	gcc $(CFLAGS) -o mycat ficheiros/mycat.o
 
 cp : $(compile)
-	gcc $(CFLAGS) -o mycp guiao1/mycp.o
+	gcc $(CFLAGS) -o mycp ficheiros/mycp.o
 
 compile : $(OBJ1)
 
 clean : 
-	rm -f guiao1/*.o mycat mycp 
+	rm -f ficheiros/*.o mycat mycp 
 
 cout : 
 	rm -f mycat mycp
