@@ -1,22 +1,14 @@
-sources := ./src
+ps: src/ps.c
+	gcc -o $@ $<
 
-deps := ./libs
+sequencia: src/sequencia.c
+	gcc -o $@ $^
 
-libs := $(deps)/$(wildcard *.h)
 
-cflags := -Wall -g  
+all: ps sequencia
 
-src := $(sources)/$(wildcard *.c);
+.PHONY: all clean
 
-obj := $(patsubst $(sources)/%.c,$(sources)/%.o,$(src))
-
-compile: $(obj)
-
-%.o: %.c $(deps)
-	gcc -c -o $@ $< $(cflags)
-
-ps: $(obj)
-	gcc -o $@ $(src)/ps.o
 
 clean: 
-	rm $(sources)/*.o
+	rm ps sequencia
