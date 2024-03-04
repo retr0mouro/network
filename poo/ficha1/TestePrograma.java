@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.DayOfWeek;
 
 public class TestePrograma{
@@ -183,29 +182,7 @@ public class TestePrograma{
             sum = sum % 7;
             return sum;
         }
-        private String dateSum(int d1,int m1,int y1,int d2,int m2,int y2){
-            int sum = 0;
-            sum += (y2 - y1 - 1) * 365;
-            int mDiff = (m2 - m1) % 12;
-            if(mDiff != 0){
-                for(int i = 0; i < mDiff;i++){
-                    if((m1 + i) % 12 == 1){
-                        sum += 28;
-                        continue;
-                    }
-                    if((m1 + i) % 2 == 1){
-                        sum += 31;
-                        continue;
-                    }else{
-                        sum += 30;
-                    }
-                }
-            }else{
-                sum += d2 - d1;
-            }
-            String answer = "";
-            return answer;
-        }
+        
         public String e1(int day,int month,int year){
             int wDay = weekDay(day,month,year);
             switch(wDay){

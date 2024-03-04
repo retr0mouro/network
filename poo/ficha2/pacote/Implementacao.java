@@ -1,5 +1,4 @@
 package pacote;
-import java.util.Arrays;
 
 public class Implementacao{
     public int findMin(int[] array){

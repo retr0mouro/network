@@ -78,7 +78,6 @@ public class lastPart{
         }
         public long tempoGasto(){
             LocalDateTime start = LocalDateTime.now();
-            long nothing = factorial(5000);
             LocalDateTime end = LocalDateTime.now();
             int interval = end.getNano() - start.getNano();
             long answer = interval / 1000000;

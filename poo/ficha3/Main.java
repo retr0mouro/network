@@ -20,6 +20,7 @@ public class Main{
                 break;
             case 4:
                 Futebol jogo = new Futebol("Benfica", "Porto", 0, "P");
+                System.out.println(jogo.toString());
                 break;
             default:
                 System.err.println("Funcao nao implementada");

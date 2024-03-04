@@ -1,6 +1,11 @@
 package pacote;
 import java.lang.Math;
 
+
+import org.junit.jupiter.api.Test;
+
+
+
 public class Circulo{
     private double x;
     private double y;
@@ -81,6 +86,10 @@ public class Circulo{
     
     public String toString(){
         return "(" + this.x + "," + this.y + "," + this.raio + ")";
+    }
+
+    public Circulo clone(){
+        return new Circulo(this.x, this.y,this.raio);
     }
 
 }

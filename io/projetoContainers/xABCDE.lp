@@ -4,6 +4,12 @@ min: 11 maior + 10 medio + 7 menor;
 //max: x + A + B + C + D + E;
 
 
+
+
+
+int maior, medio, menor;
+
+
 // Restrições para os algarismos de xABCDE
 
 
