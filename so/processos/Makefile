@@ -1,14 +1,19 @@
+CFLAGS: -Wall -g 
+
 ps: src/ps.c
-	gcc -o $@ $<
+	gcc -o $@ $< $(CFLAGS)
 
 sequencia: src/sequencia.c
-	gcc -o $@ $^
+	gcc -o $@ $^ $(CFLAGS)
+
+concurrencia: src/concurrencia.c
+	gcc -o $@ $^ $(CFLAGS)
 
 
-all: ps sequencia
+all: ps sequencia concurrencia
 
 .PHONY: all clean
 
 
 clean: 
-	rm ps sequencia
+	rm ps sequencia concurrencia
