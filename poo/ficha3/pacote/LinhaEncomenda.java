@@ -87,7 +87,7 @@ public class LinhaEncomenda{
 
 
     public double calculaValorLinhaEnc(){
-        return this.quantity * (this.basePrice - (this.basePrice * this.tax) - (this.basePrice * this.discount)) ;
+        return this.quantity * (this.basePrice - (this.basePrice * this.tax) - (this.basePrice * this.discount));
     }
 
     public double calculaValorDesconto(){

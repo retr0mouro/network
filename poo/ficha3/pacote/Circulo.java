@@ -2,7 +2,7 @@ package pacote;
 import java.lang.Math;
 
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 
 

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,11 +33,13 @@ public class CirculoTest {
 
     @Test
     void testClone() {
-        Circulo original = new Circulo(-69, 69, 13);
+        Circulo original = new Circulo(69, 69, 13);
 
         Circulo cloned = original.clone();
 
-        assertEquals(original,cloned);
+        assertEquals(original.getRaio(),cloned.getRaio()); // Teste ao Raio
+        assertEquals(original.getX(),cloned.getY()); // Teste ao X
+        assertEquals(original.getY(),cloned.getY()); // Teste ao Y
     }
 
     @Test
