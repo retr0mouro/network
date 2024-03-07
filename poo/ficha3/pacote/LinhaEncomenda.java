@@ -1,6 +1,7 @@
 package pacote;
 
 
+import org.junit.jupiter.api.Test;
 
 public class LinhaEncomenda{
     private String code;
@@ -35,33 +36,43 @@ public class LinhaEncomenda{
     public String getCode() {
         return code;
     }
+
     public void setCode(String code) {
         this.code = code;
     }
+
     public String getDescription() {
         return description;
     }
+    
     public void setDescription(String description) {
         this.description = description;
     }
+
     public double getBasePrice() {
         return basePrice;
     }
+
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
+
     public int getQuantity() {
         return quantity;
     }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public double getTax() {
         return tax;
     }
+
     public void setTax(double tax) {
         this.tax = tax;
     }
+
     public double getDiscount() {
         return discount;
     }
@@ -69,6 +80,7 @@ public class LinhaEncomenda{
     public void setDiscount(double discount) {
         this.discount = discount;
     }
+
     @Override
     public String toString() {
         return "LinhaEncomenda [code=" + this.code + ", description=" + this.description + ", basePrice=" + this.basePrice + ", quantity="
