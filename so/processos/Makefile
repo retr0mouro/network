@@ -7,7 +7,7 @@ sequencia: src/sequencia.c
 	gcc -o $@ $^ $(CFLAGS)
 
 concurrencia: src/concurrencia.c
-	gcc -o $@ $^ $(CFLAGS)
+	gcc -g -o $@ $^ $(CFLAGS)
 
 
 all: ps sequencia concurrencia
