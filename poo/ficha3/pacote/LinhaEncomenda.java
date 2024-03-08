@@ -103,7 +103,7 @@ public class LinhaEncomenda{
     }
 
     public double calculaValorDesconto(){
-        return this.basePrice * this.discount;
+        return (this.basePrice * (1 + this.tax)) * this.discount;
     }
 
 }
