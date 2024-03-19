@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=PedidoSuporte
+comment0.text=\n\ Write\ a\ description\ of\ class\ PedidoSuporte\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=PedidoSuporte()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ PedidoSuporte\n
+comment10.params=p
+comment10.target=boolean\ equals(PedidoSuporte)
+comment2.params=
+comment2.target=java.lang.String\ getNome()
+comment3.params=name
+comment3.target=void\ setNome(java.lang.String)
+comment4.params=
+comment4.target=java.time.LocalDateTime\ getData()
+comment5.params=date
+comment5.target=void\ setData(java.time.LocalDateTime)
+comment6.params=
+comment6.target=java.lang.String\ getAssunto()
+comment7.params=name
+comment7.target=void\ setAssunto(java.lang.String)
+comment8.params=
+comment8.target=java.lang.String\ getDescricao()
+comment9.params=name
+comment9.target=void\ setDescricao(java.lang.String)
+numComments=11

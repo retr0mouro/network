@@ -178,9 +178,9 @@ public class Ponto {
    * @return true, se as coordenadas em x e y 
    * forem iguais em valor absoluto.
    */
-  private boolean xIgualAy() {
-    return (Math.abs(this.x) == Math.abs(this.y));
-  }
+  //private boolean xIgualAy() {
+  //  return (Math.abs(this.x) == Math.abs(this.y));
+ // }
   
   /**
    * Método que devolve a representação em String do Ponto.

@@ -1,7 +1,6 @@
 package pacote;
 
 
-import org.junit.jupiter.api.Test;
 
 public class LinhaEncomenda{
     private String code;
